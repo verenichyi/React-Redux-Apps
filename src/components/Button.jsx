@@ -1,26 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Button extends Component {
-	constructor(props) {
-		super(props);
-		this.handleToggle = this.handleToggle.bind(this);
-
-		this.state = {isToggled: true}
+const Button = ({children}) => {
+	// const [isToggled, setIsToggled] = useState(true);
+	//
+	const handleToggle = () => {
+		// setIsToggled((state) => !state);
 	}
-
-	handleToggle() {
-		this.setState((state) => ({
-			isToggled: !state.isToggled
-		}))
-	}
-
-	render() {
-		return (
-			<button onClick={this.handleToggle} type={'button'}>
-				{this.state.isToggled ? 'Hide' : 'Show'}
-			</button>
-		);
-	}
+	return (
+		<button  type={'button'}>{children}</button>
+	);
 }
 
 export default Button;
