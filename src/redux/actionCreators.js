@@ -8,3 +8,5 @@ export const setSeconds = createAction('SET_SECONDS');
 export const setHoursInputValue = createAction('SET_HOURS_INPUT_VALUE');
 export const setMinutesInputValue = createAction('SET_MINUTES_INPUT_VALUE');
 export const setSecondsInputValue = createAction('SET_SECONDS_INPUT_VALUE');
+export const setPercentage = createAction('SET_PERCENTAGE');
+

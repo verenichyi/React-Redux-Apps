@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './timer.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
 import {
 	setButtonStatus,
 	setHours,
 	setHoursInputValue,
-	setMinutes, setMinutesInputValue,
+	setMinutes, setMinutesInputValue, setPercentage,
 	setSeconds, setSecondsInputValue,
 	setTimerId
 } from '../../redux/actionCreators';
@@ -17,18 +17,20 @@ const Timer = () => {
 	const timer = useSelector((state) => state.timerReducer);
 
 	const countdownTimer = (diff) => {
+		const startValue = diff;
+
 		return () => {
 			diff -= 1000;
 
-			if (diff <= 0) {
-				clearInterval(timer.timerId);
-				dispatch(setButtonStatus('Start'));
-			}
+			const percentage = ((startValue / 1000 - diff / 1000)) * 100 / (startValue / 1000);
+
+			if (diff <= 0) dispatch(setButtonStatus('Cancel'));
 
 			const hours = diff > 0 ? Math.floor(diff / 1000 / 60 / 60) % 24 : 0;
 			const minutes = diff > 0 ? Math.floor(diff / 1000 / 60) % 60 : 0;
 			const seconds = diff > 0 ? Math.floor(diff / 1000) % 60 : 0;
 
+			dispatch(setPercentage(percentage));
 			dispatch(setHours(hours < 10 ? '0' + hours : hours));
 			dispatch(setMinutes(minutes < 10 ? '0' + minutes : minutes));
 			dispatch(setSeconds(seconds < 10 ? '0' + seconds : seconds));
@@ -69,6 +71,7 @@ const Timer = () => {
 		dispatch(setMinutes('00'));
 		dispatch(setSeconds('00'));
 		dispatch(setButtonStatus('Start'));
+		dispatch(setPercentage(0));
 	}
 
 	const handleInput = (event) => {
@@ -88,6 +91,12 @@ const Timer = () => {
 					dispatch(setSecondsInputValue(event.target.value));
 		}
 	}
+
+	useEffect(() => {
+		if (timer.percentage === 100) {
+			clearInterval(timer.timerId);
+		}
+	}, [timer])
 
 	return (
 		<div className={styles.timer}>
