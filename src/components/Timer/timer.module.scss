@@ -1,3 +1,10 @@
+.timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .timerItems {
   display: flex;
   font-size: 48px;
@@ -25,5 +32,59 @@
     content: ':';
     position: absolute;
     right: -15px;
+  }
+}
+
+.timerForm {
+}
+
+.inputs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.timerInput {
+  height: 40px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  color: #282c34;
+  max-width: 200px;
+
+  &:focus {
+    outline: none;
+    box-shadow: rgba(236, 236, 236, 0.17) 0 3px 8px, rgba(245, 83, 162, 0.81) 0 3px 8px;
+  }
+
+  &:focus::placeholder {
+    opacity: 0;
+  }
+
+  &::placeholder {
+    transition: opacity .3s ease;
+    opacity: 1;
+    text-align: center;
+    font-size: 20px;
+  }
+}
+
+.button {
+  transition: all .3s ease;
+  width: 100%;
+  border: none;
+  font-size: 20px;
+  color: rgba(40, 44, 52, 0.7);
+  font-weight: bold;
+  height: 40px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover{
+    box-shadow: rgba(236, 236, 236, 0.17) 0 3px 8px, rgba(245, 83, 162, 0.81) 0 3px 8px;
   }
 }

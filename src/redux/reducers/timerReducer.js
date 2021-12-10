@@ -8,7 +8,7 @@ const initialState = {
 	time: ''
 };
 
-const hotelsReducer = handleActions({
+const timerReducer = handleActions({
 	[startTimer]: (state, {payload}) => {
 		return {
 			...state,
@@ -16,4 +16,4 @@ const hotelsReducer = handleActions({
 	},
 }, initialState);
 
-export default hotelsReducer;
+export default timerReducer;
