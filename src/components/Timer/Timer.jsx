@@ -72,15 +72,20 @@ const Timer = () => {
 	}
 
 	const handleInput = (event) => {
+		const value = event.target.value;
+
 		switch (event.target.name) {
 			case 'hours':
-				dispatch(setHoursInputValue(event.target.value));
+				if (value >= 0 && value <= 23)
+					dispatch(setHoursInputValue(event.target.value));
 				break;
 			case 'minutes':
-				dispatch(setMinutesInputValue(event.target.value));
+				if (value >= 0 && value <= 59)
+					dispatch(setMinutesInputValue(event.target.value));
 				break;
 			case 'seconds':
-				dispatch(setSecondsInputValue(event.target.value));
+				if (value >= 0 && value <= 59)
+					dispatch(setSecondsInputValue(event.target.value));
 		}
 	}
 
