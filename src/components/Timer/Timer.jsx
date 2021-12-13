@@ -3,9 +3,10 @@ import React, {useState} from 'react';
 import styles from './timer.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+	resetInputValues,
 	setButtonStatus,
 	setHours,
-	setHoursInputValue,
+	setHoursInputValue, setInputValues,
 	setMinutes, setMinutesInputValue,
 	setSeconds, setSecondsInputValue,
 	setTimerId
@@ -15,6 +16,9 @@ const Timer = () => {
 	const dispatch = useDispatch();
 
 	const timer = useSelector((state) => state.timerReducer);
+	// const timerValues = useSelector((state) => state.timerReducer.timerValues);
+	const inputValues = useSelector((state) => state.timerReducer.timerInputsValues);
+
 
 	const countdownTimer = (diff) => {
 		return () => {
@@ -43,9 +47,9 @@ const Timer = () => {
 				new Date().getFullYear(),
 				new Date().getMonth(),
 				new Date().getDate(),
-				new Date().getHours() + +timer.hoursInputValue,
-				new Date().getMinutes() + +timer.minutesInputValue,
-				new Date().getSeconds() + +timer.secondsInputValue,
+				new Date().getHours() + +inputValues.hours,
+				new Date().getMinutes() + +inputValues.minutes,
+				new Date().getSeconds() + +inputValues.seconds,
 			)
 		) - Date.parse(new Date());
 
@@ -54,9 +58,7 @@ const Timer = () => {
 		const counter = countdownTimer(timeDifference);
 
 		dispatch(setTimerId(setInterval(counter, 1000)));
-		dispatch(setHoursInputValue(''));
-		dispatch(setMinutesInputValue(''));
-		dispatch(setSecondsInputValue(''));
+		dispatch(resetInputValues(''));
 		dispatch(setButtonStatus('Cancel'));
 	}
 
@@ -73,38 +75,43 @@ const Timer = () => {
 
 	const handleInput = (event) => {
 		const value = event.target.value;
+		const name = event.target.name;
 
-		switch (event.target.name) {
+		switch (name) {
 			case 'hours':
 				if (value >= 0 && value <= 23)
-					dispatch(setHoursInputValue(value));
+					dispatch(setInputValues({value, name}));
 				break;
 			case 'minutes':
 				if (value >= 0 && value <= 59)
-					dispatch(setMinutesInputValue(value));
+					dispatch(setInputValues({value, name}));
 				break;
 			case 'seconds':
 				if (value >= 0 && value <= 59)
-					dispatch(setSecondsInputValue(value));
+					dispatch(setInputValues({value, name}));
 		}
 	}
+
+	// const timerItems = Object.keys(timerValues).map(item => <div className={styles.timerItem}>{timerValues[item]}</div>);
+
 
 	return (
 		<div className={styles.timer}>
 			<div className={styles.timerItems}>
-				<div className={`${styles.timerItem} timerHours`}>{timer.hours}</div>
-				<div className={`${styles.timerItem} timerMinutes`}>{timer.minutes}</div>
-				<div className={`${styles.timerItem} timerSeconds`}>{timer.seconds}</div>
+				<div className={styles.timerItem}>{timer.hours}</div>
+				<div className={styles.timerItem}>{timer.minutes}</div>
+				<div className={styles.timerItem}>{timer.seconds}</div>
+				{/*{timerItems}*/}
 			</div>
 			<form className={styles.timerForm}>
 				<div className={styles.inputs}>
-					<input value={timer.hoursInputValue} onChange={handleInput} className={styles.timerInput}
+					<input value={inputValues.hours} onChange={handleInput} className={styles.timerInput}
 					       placeholder={'Hours'}
 					       name={'hours'} type={'number'}/>
-					<input value={timer.minutesInputValue} onChange={handleInput} className={styles.timerInput}
+					<input value={inputValues.minutes} onChange={handleInput} className={styles.timerInput}
 					       placeholder={'Minutes'}
 					       name={'minutes'} type={'number'}/>
-					<input value={timer.secondsInputValue} onChange={handleInput} className={styles.timerInput}
+					<input value={inputValues.seconds} onChange={handleInput} className={styles.timerInput}
 					       placeholder={'Seconds'}
 					       name={'seconds'} type={'number'}/>
 				</div>
