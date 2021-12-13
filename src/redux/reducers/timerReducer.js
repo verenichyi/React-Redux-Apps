@@ -1,15 +1,10 @@
 import {handleActions} from 'redux-actions';
 
 import {
-	resetInputValues, resetTimerValues,
+	resetInputValues,
+	resetTimerValues,
 	setButtonStatus,
-	setHours,
-	setHoursInputValue,
 	setInputValues,
-	setMinutes,
-	setMinutesInputValue,
-	setSeconds,
-	setSecondsInputValue,
 	setTimerId,
 	setTimerValues,
 } from '../actionCreators';
@@ -22,9 +17,6 @@ const initialState = {
 		minutes: '00',
 		seconds: '00',
 	},
-	hours: '00',
-	minutes: '00',
-	seconds: '00',
 	timerInputsValues: {
 		hours: '',
 		minutes: '',
@@ -51,9 +43,6 @@ const timerReducer = handleActions({
 
 		return {...state, timerValues: {...timerValues}}
 	},
-	// [setHours]: (state, {payload}) => ({...state, hours: payload}),
-	// [setMinutes]: (state, {payload}) => ({...state, minutes: payload}),
-	// [setSeconds]: (state, {payload}) => ({...state, seconds: payload}),
 	[setInputValues]: (state, {payload}) => ({
 		...state,
 		timerInputsValues: {...state.timerInputsValues, [payload.name]: payload.value}

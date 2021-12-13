@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './timer.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
+
 import {
-	resetInputValues, resetTimerValues,
-	setButtonStatus,
-	setHours,
-	setHoursInputValue, setInputValues,
-	setMinutes, setMinutesInputValue,
-	setSeconds, setSecondsInputValue,
-	setTimerId, setTimerValues
+	resetInputValues,
+	resetTimerValues,
+	setButtonStatus, setInputValues,
+	setTimerId,
+	setTimerValues
 } from '../../redux/actionCreators';
 import getDatesDifference from '../../Dates/timer';
 
@@ -82,30 +81,20 @@ const Timer = () => {
 		}
 	}
 
-	// const timerItems = Object.keys(timerValues).map(item => <div className={styles.timerItem}>{timerValues[item]}</div>);
+	const timerItems = Object.keys(timerValues).map((item, index) =>
+		<div key={index} className={styles.timerItem}>{timerValues[item]}</div>);
+
+	const timerInputs = Object.entries(inputValues).map(([key,value], index) => {
+		return <input key={index} value={value} onChange={handleInput} className={styles.timerInput}
+		              placeholder={`${key[0].toUpperCase()}${key.slice(1)}`} name={`${key}`} type={'number'}/>
+	});
 
 	return (
 		<div className={styles.timer}>
-			<div className={styles.timerItems}>
-				<div className={styles.timerItem}>{timerValues.hours}</div>
-				<div className={styles.timerItem}>{timerValues.minutes}</div>
-				<div className={styles.timerItem}>{timerValues.seconds}</div>
-				{/*{timerItems}*/}
-			</div>
+			<div className={styles.timerItems}>{timerItems}</div>
 			<form className={styles.timerForm}>
-				<div className={styles.inputs}>
-					<input value={inputValues.hours} onChange={handleInput} className={styles.timerInput}
-					       placeholder={'Hours'}
-					       name={'hours'} type={'number'}/>
-					<input value={inputValues.minutes} onChange={handleInput} className={styles.timerInput}
-					       placeholder={'Minutes'}
-					       name={'minutes'} type={'number'}/>
-					<input value={inputValues.seconds} onChange={handleInput} className={styles.timerInput}
-					       placeholder={'Seconds'}
-					       name={'seconds'} type={'number'}/>
-				</div>
-				<button className={styles.button}
-				        onClick={timer.buttonStatus === 'Start' ? handleStart : handleCancel}>{timer.buttonStatus}</button>
+				<div className={styles.inputs}>{timerInputs}</div>
+				<button className={styles.button} onClick={timer.buttonStatus === 'Start' ? handleStart : handleCancel}>{timer.buttonStatus}</button>
 			</form>
 		</div>
 	)
