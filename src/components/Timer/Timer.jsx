@@ -11,6 +11,7 @@ import {
 	setSeconds, setSecondsInputValue,
 	setTimerId, setTimerValues
 } from '../../redux/actionCreators';
+import getDatesDifference from '../../Dates/timer';
 
 const Timer = () => {
 	const dispatch = useDispatch();
@@ -42,16 +43,7 @@ const Timer = () => {
 	const handleStart = (event) => {
 		event.preventDefault();
 
-		const timeDifference = Date.parse(
-			new Date(
-				new Date().getFullYear(),
-				new Date().getMonth(),
-				new Date().getDate(),
-				new Date().getHours() + +inputValues.hours,
-				new Date().getMinutes() + +inputValues.minutes,
-				new Date().getSeconds() + +inputValues.seconds,
-			)
-		) - Date.parse(new Date());
+		const timeDifference = getDatesDifference(inputValues.hours, inputValues.minutes, inputValues.seconds);
 
 		if (!timeDifference) return;
 
