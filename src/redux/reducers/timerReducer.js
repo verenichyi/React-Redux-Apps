@@ -35,10 +35,14 @@ const initialState = {
 const timerReducer = handleActions({
 	[setTimerId]: (state, {payload}) => ({...state, timerId: payload}),
 	[setButtonStatus]: (state, {payload}) => ({...state, buttonStatus: payload}),
-	// [setTimerValues]: (state, {payload}) => ({
-	// 	...state,
-	// 	timerValues: {...state.timerValues, [payload.name]: payload.value}
-	// }),
+	[setTimerValues]: (state, {payload}) => ({
+		...state,
+		timerValues: {
+			hours: payload.hours,
+			minutes: payload.minutes,
+			seconds: payload.seconds
+		}
+	}),
 	[resetTimerValues]: (state, {payload}) => {
 		const timerValues = Object.keys(state.timerValues).reduce((acc, curr) => {
 			acc[curr] = payload;
@@ -47,9 +51,9 @@ const timerReducer = handleActions({
 
 		return {...state, timerValues: {...timerValues}}
 	},
-	[setHours]: (state, {payload}) => ({...state, hours: payload}),
-	[setMinutes]: (state, {payload}) => ({...state, minutes: payload}),
-	[setSeconds]: (state, {payload}) => ({...state, seconds: payload}),
+	// [setHours]: (state, {payload}) => ({...state, hours: payload}),
+	// [setMinutes]: (state, {payload}) => ({...state, minutes: payload}),
+	// [setSeconds]: (state, {payload}) => ({...state, seconds: payload}),
 	[setInputValues]: (state, {payload}) => ({
 		...state,
 		timerInputsValues: {...state.timerInputsValues, [payload.name]: payload.value}

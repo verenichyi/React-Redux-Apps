@@ -3,22 +3,23 @@ import React, {useState} from 'react';
 import styles from './timer.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-	resetInputValues,
+	resetInputValues, resetTimerValues,
 	setButtonStatus,
 	setHours,
 	setHoursInputValue, setInputValues,
 	setMinutes, setMinutesInputValue,
 	setSeconds, setSecondsInputValue,
-	setTimerId
+	setTimerId, setTimerValues
 } from '../../redux/actionCreators';
 
 const Timer = () => {
 	const dispatch = useDispatch();
 
 	const timer = useSelector((state) => state.timerReducer);
-	// const timerValues = useSelector((state) => state.timerReducer.timerValues);
+	const timerValues = useSelector((state) => state.timerReducer.timerValues);
 	const inputValues = useSelector((state) => state.timerReducer.timerInputsValues);
 
+	const formatNumbers = (num) => num < 10 ? '0' + num : num;
 
 	const countdownTimer = (diff) => {
 		return () => {
@@ -26,16 +27,15 @@ const Timer = () => {
 
 			if (diff <= 0) {
 				clearInterval(timer.timerId);
+				dispatch(resetTimerValues('00'));
 				dispatch(setButtonStatus('Start'));
 			}
 
-			const hours = diff > 0 ? Math.floor(diff / 1000 / 60 / 60) % 24 : 0;
-			const minutes = diff > 0 ? Math.floor(diff / 1000 / 60) % 60 : 0;
-			const seconds = diff > 0 ? Math.floor(diff / 1000) % 60 : 0;
+			const hours = diff > 0 ? formatNumbers(Math.floor(diff / 1000 / 60 / 60) % 24) : 0;
+			const minutes = diff > 0 ? formatNumbers(Math.floor(diff / 1000 / 60) % 60) : 0;
+			const seconds = diff > 0 ? formatNumbers(Math.floor(diff / 1000) % 60) : 0;
 
-			dispatch(setHours(hours < 10 ? '0' + hours : hours));
-			dispatch(setMinutes(minutes < 10 ? '0' + minutes : minutes));
-			dispatch(setSeconds(seconds < 10 ? '0' + seconds : seconds));
+			dispatch(setTimerValues({hours, minutes, seconds}));
 		}
 	}
 
@@ -67,9 +67,7 @@ const Timer = () => {
 
 		clearInterval(timer.timerId);
 
-		dispatch(setHours('00'));
-		dispatch(setMinutes('00'));
-		dispatch(setSeconds('00'));
+		dispatch(resetTimerValues('00'));
 		dispatch(setButtonStatus('Start'));
 	}
 
@@ -94,13 +92,12 @@ const Timer = () => {
 
 	// const timerItems = Object.keys(timerValues).map(item => <div className={styles.timerItem}>{timerValues[item]}</div>);
 
-
 	return (
 		<div className={styles.timer}>
 			<div className={styles.timerItems}>
-				<div className={styles.timerItem}>{timer.hours}</div>
-				<div className={styles.timerItem}>{timer.minutes}</div>
-				<div className={styles.timerItem}>{timer.seconds}</div>
+				<div className={styles.timerItem}>{timerValues.hours}</div>
+				<div className={styles.timerItem}>{timerValues.minutes}</div>
+				<div className={styles.timerItem}>{timerValues.seconds}</div>
 				{/*{timerItems}*/}
 			</div>
 			<form className={styles.timerForm}>
