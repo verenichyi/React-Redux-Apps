@@ -77,15 +77,15 @@ const Timer = () => {
 		switch (event.target.name) {
 			case 'hours':
 				if (value >= 0 && value <= 23)
-					dispatch(setHoursInputValue(event.target.value));
+					dispatch(setHoursInputValue(value));
 				break;
 			case 'minutes':
 				if (value >= 0 && value <= 59)
-					dispatch(setMinutesInputValue(event.target.value));
+					dispatch(setMinutesInputValue(value));
 				break;
 			case 'seconds':
 				if (value >= 0 && value <= 59)
-					dispatch(setSecondsInputValue(event.target.value));
+					dispatch(setSecondsInputValue(value));
 		}
 	}
 
