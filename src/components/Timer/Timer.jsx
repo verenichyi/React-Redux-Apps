@@ -2,19 +2,24 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './timer.module.scss';
+
 import {
-	setButtonStatus,
-	setHours,
-	setHoursInputValue,
-	setMinutes, setMinutesInputValue, setPercentage,
-	setSeconds, setSecondsInputValue,
-	setTimerId
+	resetInputValues,
+	resetTimerValues,
+	setButtonStatus, setInputValues, setPercentage,
+	setTimerId,
+	setTimerValues
 } from '../../redux/actionCreators';
+import getDatesDifference from '../../Dates/timer';
 
 const Timer = () => {
 	const dispatch = useDispatch();
 
 	const timer = useSelector((state) => state.timerReducer);
+	const timerValues = useSelector((state) => state.timerReducer.timerValues);
+	const inputValues = useSelector((state) => state.timerReducer.timerInputsValues);
+
+	const formatNumbers = (num) => num < 10 ? '0' + num : num;
 
 	const countdownTimer = (diff) => {
 		const startValue = diff;
@@ -26,39 +31,26 @@ const Timer = () => {
 
 			if (diff <= 0) dispatch(setButtonStatus('Cancel'));
 
-			const hours = diff > 0 ? Math.floor(diff / 1000 / 60 / 60) % 24 : 0;
-			const minutes = diff > 0 ? Math.floor(diff / 1000 / 60) % 60 : 0;
-			const seconds = diff > 0 ? Math.floor(diff / 1000) % 60 : 0;
+			const hours = diff > 0 ? formatNumbers(Math.floor(diff / 1000 / 60 / 60) % 24) : 0;
+			const minutes = diff > 0 ? formatNumbers(Math.floor(diff / 1000 / 60) % 60) : 0;
+			const seconds = diff > 0 ? formatNumbers(Math.floor(diff / 1000) % 60) : 0;
 
 			dispatch(setPercentage(percentage));
-			dispatch(setHours(hours < 10 ? '0' + hours : hours));
-			dispatch(setMinutes(minutes < 10 ? '0' + minutes : minutes));
-			dispatch(setSeconds(seconds < 10 ? '0' + seconds : seconds));
+			dispatch(setTimerValues({hours, minutes, seconds}));
 		}
 	}
 
 	const handleStart = (event) => {
 		event.preventDefault();
 
-		const timeDifference = Date.parse(
-			new Date(
-				new Date().getFullYear(),
-				new Date().getMonth(),
-				new Date().getDate(),
-				new Date().getHours() + +timer.hoursInputValue,
-				new Date().getMinutes() + +timer.minutesInputValue,
-				new Date().getSeconds() + +timer.secondsInputValue,
-			)
-		) - Date.parse(new Date());
+		const timeDifference = getDatesDifference(inputValues.hours, inputValues.minutes, inputValues.seconds);
 
 		if (!timeDifference) return;
 
 		const counter = countdownTimer(timeDifference);
 
 		dispatch(setTimerId(setInterval(counter, 1000)));
-		dispatch(setHoursInputValue(''));
-		dispatch(setMinutesInputValue(''));
-		dispatch(setSecondsInputValue(''));
+		dispatch(resetInputValues(''));
 		dispatch(setButtonStatus('Cancel'));
 	}
 
@@ -67,58 +59,51 @@ const Timer = () => {
 
 		clearInterval(timer.timerId);
 
-		dispatch(setHours('00'));
-		dispatch(setMinutes('00'));
-		dispatch(setSeconds('00'));
+		dispatch(resetTimerValues('00'));
 		dispatch(setButtonStatus('Start'));
 		dispatch(setPercentage(0));
 	}
 
 	const handleInput = (event) => {
 		const value = event.target.value;
+		const name = event.target.name;
 
-		switch (event.target.name) {
+		switch (name) {
 			case 'hours':
 				if (value >= 0 && value <= 23)
-					dispatch(setHoursInputValue(event.target.value));
+					dispatch(setInputValues({value, name}));
 				break;
 			case 'minutes':
 				if (value >= 0 && value <= 59)
-					dispatch(setMinutesInputValue(event.target.value));
+					dispatch(setInputValues({value, name}));
 				break;
 			case 'seconds':
 				if (value >= 0 && value <= 59)
-					dispatch(setSecondsInputValue(event.target.value));
+					dispatch(setInputValues({value, name}));
 		}
 	}
 
 	useEffect(() => {
 		if (timer.percentage === 100) {
+			dispatch(resetTimerValues('00'));
 			clearInterval(timer.timerId);
 		}
-	}, [timer])
+	}, [timer.percentage])
+
+	const timerItems = Object.keys(timerValues).map((item, index) =>
+		<div key={index} className={styles.timerItem}>{timerValues[item]}</div>);
+
+	const timerInputs = Object.entries(inputValues).map(([key,value], index) => {
+		return <input key={index} value={value} onChange={handleInput} className={styles.timerInput}
+									placeholder={`${key[0].toUpperCase()}${key.slice(1)}`} name={`${key}`} type={'number'}/>
+	});
 
 	return (
 		<div className={styles.timer}>
-			<div className={styles.timerItems}>
-				<div className={`${styles.timerItem} timerHours`}>{timer.hours}</div>
-				<div className={`${styles.timerItem} timerMinutes`}>{timer.minutes}</div>
-				<div className={`${styles.timerItem} timerSeconds`}>{timer.seconds}</div>
-			</div>
+			<div className={styles.timerItems}>{timerItems}</div>
 			<form className={styles.timerForm}>
-				<div className={styles.inputs}>
-					<input value={timer.hoursInputValue} onChange={handleInput} className={styles.timerInput}
-					       placeholder={'Hours'}
-					       name={'hours'} type={'number'}/>
-					<input value={timer.minutesInputValue} onChange={handleInput} className={styles.timerInput}
-					       placeholder={'Minutes'}
-					       name={'minutes'} type={'number'}/>
-					<input value={timer.secondsInputValue} onChange={handleInput} className={styles.timerInput}
-					       placeholder={'Seconds'}
-					       name={'seconds'} type={'number'}/>
-				</div>
-				<button className={styles.button}
-				        onClick={timer.buttonStatus === 'Start' ? handleStart : handleCancel}>{timer.buttonStatus}</button>
+				<div className={styles.inputs}>{timerInputs}</div>
+				<button className={styles.button} onClick={timer.buttonStatus === 'Start' ? handleStart : handleCancel}>{timer.buttonStatus}</button>
 			</form>
 		</div>
 	)
