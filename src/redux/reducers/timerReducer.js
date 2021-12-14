@@ -58,6 +58,7 @@ const timerReducer = handleActions({
 		return {...state, timerInputsValues: {...timerInputsValues}}
 	},
 	[setPercentage]: (state, {payload}) =>  ({...state, percentage: payload}),
+	}
 }, initialState);
 
 export default timerReducer;
