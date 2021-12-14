@@ -7,7 +7,7 @@ import React from 'react';
 function App() {
 	return (
 		<div className="App">
-			<CircularProgressBar strokeWidth="10" sqSize="200"/>
+			<CircularProgressBar/>
 			<Timer/>
 		</div>
 	);

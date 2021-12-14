@@ -1,13 +1,12 @@
 import React from 'react';
-
-import styles from './circular-progress-bar.module.scss';
 import {useSelector} from 'react-redux';
 
-const CircularProgressBar = ({sqSize, strokeWidth}) => {
-	const percentage = useSelector(state=> state.timerReducer.percentage);
-	const radius = (sqSize - strokeWidth) / 2;
-	const viewBox = `0 0 ${sqSize} ${sqSize}`;
-	const dashArray = radius * Math.PI * 2;
+import styles from './circular-progress-bar.module.scss';
+
+import {sqSize, strokeWidth, radius, viewBox, dashArray} from '../../constants/circularProgressBar';
+
+const CircularProgressBar = () => {
+	const percentage = useSelector(state => state.timerReducer.percentage);
 	const dashOffset = dashArray - dashArray * parseFloat(percentage.toFixed(1)) / 100;
 
 	return (
