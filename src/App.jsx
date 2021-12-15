@@ -1,14 +1,15 @@
-import './App.css';
-import Timer from './components/Timer/Timer';
-import CircularProgressBar from './components/Circular-progress-bar/CircularProgressBar';
 import React from 'react';
 
+import './App.css';
 
-function App() {
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
+
+const App = () => {
 	return (
 		<div className="App">
-			<CircularProgressBar/>
-			<Timer/>
+			<Header/>
+			<Main/>
 		</div>
 	);
 }
