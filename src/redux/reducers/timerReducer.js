@@ -7,6 +7,7 @@ import {
 	setInputValues,
 	setTimerId,
 	setTimerValues,
+	setPercentage,
 } from '../actionCreators';
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
 		minutes: '',
 		seconds: '',
 	},
+	percentage: 0
 };
 
 const timerReducer = handleActions({
@@ -54,7 +56,8 @@ const timerReducer = handleActions({
 		}, {});
 
 		return {...state, timerInputsValues: {...timerInputsValues}}
-	}
+	},
+	[setPercentage]: (state, {payload}) =>  ({...state, percentage: payload}),
 }, initialState);
 
 export default timerReducer;

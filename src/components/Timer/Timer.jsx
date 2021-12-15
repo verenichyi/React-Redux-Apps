@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './timer.module.scss';
@@ -6,7 +7,7 @@ import styles from './timer.module.scss';
 import {
 	resetInputValues,
 	resetTimerValues,
-	setButtonStatus, setInputValues,
+	setButtonStatus, setInputValues, setPercentage,
 	setTimerId,
 	setTimerValues
 } from '../../redux/actionCreators';
@@ -22,19 +23,20 @@ const Timer = () => {
 	const formatNumbers = (num) => num < 10 ? '0' + num : num;
 
 	const countdownTimer = (diff) => {
+		const startValue = diff;
+
 		return () => {
 			diff -= 1000;
 
-			if (diff <= 0) {
-				clearInterval(timer.timerId);
-				dispatch(resetTimerValues('00'));
-				dispatch(setButtonStatus('Start'));
-			}
+			const percentage = ((startValue / 1000 - diff / 1000)) * 100 / (startValue / 1000);
+
+			if (diff <= 0) dispatch(setButtonStatus('Cancel'));
 
 			const hours = diff > 0 ? formatNumbers(Math.floor(diff / 1000 / 60 / 60) % 24) : 0;
 			const minutes = diff > 0 ? formatNumbers(Math.floor(diff / 1000 / 60) % 60) : 0;
 			const seconds = diff > 0 ? formatNumbers(Math.floor(diff / 1000) % 60) : 0;
 
+			dispatch(setPercentage(percentage));
 			dispatch(setTimerValues({hours, minutes, seconds}));
 		}
 	}
@@ -60,6 +62,7 @@ const Timer = () => {
 
 		dispatch(resetTimerValues('00'));
 		dispatch(setButtonStatus('Start'));
+		dispatch(setPercentage(0));
 	}
 
 	const handleInput = (event) => {
@@ -81,12 +84,19 @@ const Timer = () => {
 		}
 	}
 
+	useEffect(() => {
+		if (timer.percentage === 100) {
+			dispatch(resetTimerValues('00'));
+			clearInterval(timer.timerId);
+		}
+	}, [timer.percentage])
+
 	const timerItems = Object.keys(timerValues).map((item, index) =>
 		<div key={index} className={styles.timerItem}>{timerValues[item]}</div>);
 
 	const timerInputs = Object.entries(inputValues).map(([key,value], index) => {
 		return <input key={index} value={value} onChange={handleInput} className={styles.timerInput}
-		              placeholder={`${key[0].toUpperCase()}${key.slice(1)}`} name={`${key}`} type={'number'}/>
+									placeholder={`${key[0].toUpperCase()}${key.slice(1)}`} name={`${key}`} type={'number'}/>
 	});
 
 	return (
