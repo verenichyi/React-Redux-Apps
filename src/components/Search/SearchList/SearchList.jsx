@@ -1,15 +1,13 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 
-const posts = [
-	{id: '1', text: 'This first post is about React'},
-	{id: '2', text: 'This next post is about Preact'},
-	{id: '3', text: 'We have yet another React post!'},
-	{id: '4', text: 'This is the fourth and final post'},
-];
+import {posts} from '../../../constants/searchInput';
 
-const SearchList = ({searchValue}) => {
+const SearchList = () => {
+	const searchValue = useSelector(state=> state.searchReducer.searchValue);
+
 	const searchItems = posts.filter((post) => post.text.toLowerCase().includes(searchValue.toLowerCase())).map((post) => (
-		<li key={post.id}>{post.text}</li>))
+		<li key={post.id}>{post.text}</li>));
 
 	return (
 		<ul>{searchItems}</ul>

@@ -1,9 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './search-input.module.scss';
 
-const SearchInput = ({setSearchValue, mode}) => {
-	const [value, setValue] = useState('');
+import {setSearchInputValue, setSearchValue} from '../../../redux/actionCreators';
+
+const SearchInput = () => {
+	const mode = useSelector(state => state.searchReducer.mode);
+	const value = useSelector(state => state.searchReducer.searchInputValue);
+	const dispatch = useDispatch();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -16,10 +21,10 @@ const SearchInput = ({setSearchValue, mode}) => {
 	const handleChange = (event) => {
 		const value = event.target.value;
 
-		setValue(value);
+		dispatch(setSearchInputValue(value));
 
 		if (mode === 'IMMEDIATE') {
-			setSearchValue(value);
+			dispatch(setSearchValue(value));
 		}
 	}
 

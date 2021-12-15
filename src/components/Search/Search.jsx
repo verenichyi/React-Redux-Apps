@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useSelector} from 'react-redux';
 
 import SearchInput from './SearchInput/SearchInput';
 import SearchList from './SearchList/SearchList';
@@ -8,16 +9,16 @@ import styles from './search.module.scss';
 import modes from '../../constants/searchInput';
 
 const Search = () => {
-	const [searchValue,setSearchValue] = useState('');
-	const [mode, setMode] = useState('IMMEDIATE');
+	const mode = useSelector(state => state.searchReducer.mode);
 
-	const modeLinks = modes.map((item, index)=> <ModeLink key={index} setMode={setMode} currentMode={mode} mode={item.name}>{item.title}</ModeLink>);
+	const modeLinks = modes.map((item, index) =>
+		<ModeLink key={index} currentMode={mode} mode={item.name}>{item.title}</ModeLink>);
 
 	return (
 		<div className={styles.search}>
 			<div className={styles.modeLinkWrapper}>{modeLinks}</div>
-			<SearchInput setSearchValue={setSearchValue} mode={mode}/>
-			<SearchList searchValue={searchValue}/>
+			<SearchInput/>
+			<SearchList/>
 		</div>
 	)
 };

@@ -1,12 +1,16 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 
 import styles from './mode-link.module.scss';
+import {setMode} from '../../../redux/actionCreators';
 
-const ModeLink = ({setMode, currentMode, mode, children}) => {
+const ModeLink = ({currentMode, mode, children}) => {
+	const dispatch = useDispatch();
+
 	const handleClick = (event) => {
 		event.preventDefault();
 
-		setMode(mode);
+		dispatch(setMode(mode));
 	}
 
 	return (
