@@ -6,7 +6,7 @@ import styles from './main.module.scss';
 import CircularProgressBar from '../Circular-progress-bar/CircularProgressBar';
 import Timer from '../Timer/Timer';
 import Home from '../Home/Home';
-import SearchInput from '../SearchInput/SearchInput';
+import Search from '../Search/Search';
 
 const Main = () => {
 	return (
@@ -15,7 +15,7 @@ const Main = () => {
 				<Route path={'/'} element={<Home/>}/>
 				<Route path={'/timer'} element={<Timer/>}/>
 				<Route path={'/progress-bar'} element={<CircularProgressBar/>}/>
-				<Route path={'/search-input'} element={<SearchInput/>}/>
+				<Route path={'/search'} element={<Search/>}/>
 			</Routes>
 		</main>
 	)

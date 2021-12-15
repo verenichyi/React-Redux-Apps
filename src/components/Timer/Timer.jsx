@@ -11,7 +11,7 @@ import {
 	setTimerId,
 	setTimerValues
 } from '../../redux/actionCreators';
-import getDatesDifference from '../../Dates/timer';
+import getDatesDifference from '../../dates/timer';
 
 const Timer = () => {
 	const dispatch = useDispatch();
