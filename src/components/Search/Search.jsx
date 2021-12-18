@@ -11,7 +11,7 @@ import modes from '../../constants/searchInput';
 const Search = () => {
 	const mode = useSelector(state => state.searchReducer.mode);
 
-	const modeLinks = modes.map((item, index) =>
+	const modeLinks = Object.values(modes).map((item, index) =>
 		<ModeLink key={index} currentMode={mode} mode={item.name}>{item.title}</ModeLink>);
 
 	return (

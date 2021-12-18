@@ -4,16 +4,17 @@ import {useDispatch, useSelector} from 'react-redux';
 import styles from './search-input.module.scss';
 
 import {setSearchInputValue, setSearchValue} from '../../../redux/actionCreators';
+import modes from '../../../constants/searchInput';
 
 const SearchInput = () => {
-	const mode = useSelector(state => state.searchReducer.mode);
-	const value = useSelector(state => state.searchReducer.searchInputValue);
+	const mode = useSelector(state => state?.searchReducer.mode);
+	const value = useSelector(state => state?.searchReducer.searchInputValue);
 	const dispatch = useDispatch();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		if (mode === 'ENTER_PRESSED') {
+		if (mode === modes.enterPressed.name) {
 			setSearchValue(value);
 		}
 	}
@@ -23,13 +24,13 @@ const SearchInput = () => {
 
 		dispatch(setSearchInputValue(value));
 
-		if (mode === 'IMMEDIATE') {
+		if (mode === modes.immediate.name) {
 			dispatch(setSearchValue(value));
 		}
 	}
 
 	useEffect(() => {
-		if (mode === 'ON_STOP_TYPING') {
+		if (mode === modes.stopTyping.name) {
 			const timeoutId = setTimeout(() => {
 				setSearchValue(value);
 			}, 500);

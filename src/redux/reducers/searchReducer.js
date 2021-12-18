@@ -5,10 +5,11 @@ import {
 	setSearchValue,
 	setSearchInputValue
 } from '../actionCreators';
+import modes from '../../constants/searchInput';
 
 const initialState = {
 	searchValue: '',
-	mode: 'IMMEDIATE',
+	mode: modes.immediate.name,
 	searchInputValue: ''
 };
 

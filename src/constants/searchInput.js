@@ -1,17 +1,17 @@
-const modes = [
-	{
+const modes = {
+	immediate: {
 		title: 'Immediate',
 		name: 'IMMEDIATE'
 	},
-	{
+	enterPressed: {
 		title: 'Enter pressed',
 		name: 'ENTER_PRESSED'
 	},
-	{
+	stopTyping: {
 		title: 'On stop typing',
 		name: 'ON_STOP_TYPING'
-	},
-];
+	}
+};
 
 export const posts = [
 	{id: '1', text: 'This first post is about React'},
