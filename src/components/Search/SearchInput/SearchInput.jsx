@@ -14,9 +14,7 @@ const SearchInput = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		if (mode === modes.enterPressed.name) {
-			setSearchValue(value);
-		}
+		if (mode === modes.enterPressed.name) dispatch(setSearchValue(value));
 	}
 
 	const handleChange = (event) => {
@@ -24,16 +22,12 @@ const SearchInput = () => {
 
 		dispatch(setSearchInputValue(value));
 
-		if (mode === modes.immediate.name) {
-			dispatch(setSearchValue(value));
-		}
+		if (mode === modes.immediate.name) dispatch(setSearchValue(value));
 	}
 
 	useEffect(() => {
 		if (mode === modes.stopTyping.name) {
-			const timeoutId = setTimeout(() => {
-				setSearchValue(value);
-			}, 500);
+			const timeoutId = setTimeout(() => dispatch(setSearchValue(value)), 500);
 
 			return () => clearTimeout(timeoutId);
 		}
