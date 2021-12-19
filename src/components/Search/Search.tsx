@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {RootStateOrAny} from 'react-redux';
 
 import SearchInput from './SearchInput/SearchInput';
 import SearchList from './SearchList/SearchList';
@@ -7,9 +7,10 @@ import ModeLink from './ModeLink/ModeLink';
 
 import styles from './search.module.scss';
 import modes from '../../constants/searchInput';
+import {useAppSelector} from '../../hooks';
 
 const Search = () => {
-	const mode = useSelector(state => state.searchReducer.mode);
+	const mode = useAppSelector((state: RootStateOrAny) => state.searchReducer.mode);
 
 	const modeLinks = Object.values(modes).map((item, index) =>
 		<ModeLink key={index} currentMode={mode} mode={item.name}>{item.title}</ModeLink>);
