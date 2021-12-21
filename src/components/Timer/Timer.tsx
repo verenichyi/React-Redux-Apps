@@ -30,7 +30,7 @@ const Timer = () => {
             diff -= 1000;
 
             const percentage: number = parseFloat((((startValue / 1000 - diff / 1000)) * 100 / (startValue / 1000)).toFixed(0));
-            console.log(percentage)
+
             if (diff <= 0) {
                 clearInterval(timer.timerId);
                 dispatch(setButtonStatus('Cancel'));
