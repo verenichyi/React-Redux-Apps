@@ -1,16 +1,15 @@
 import React, {ChangeEvent, FormEvent, useEffect} from 'react';
-import {RootStateOrAny} from 'react-redux';
+import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 
 import styles from './search-input.module.scss';
 
 import {setSearchInputValue, setSearchValue} from '../../../redux/actionCreators';
 import modes from '../../../constants/searchInput';
-import {useAppDispatch, useAppSelector} from '../../../hooks';
 
 const SearchInput = () => {
-    const mode: string = useAppSelector((state: RootStateOrAny) => state.searchReducer.mode);
-    const value: string = useAppSelector((state: RootStateOrAny) => state.searchReducer.searchInputValue);
-    const dispatch = useAppDispatch();
+    const mode: string = useSelector((state: RootStateOrAny) => state.searchReducer.mode);
+    const value: string = useSelector((state: RootStateOrAny) => state.searchReducer.searchInputValue);
+    const dispatch = useDispatch();
 
     const handleSubmit = (event: FormEvent): void => {
         event.preventDefault();

@@ -12,15 +12,14 @@ import {
     setTimerValues
 } from '../../redux/actionCreators';
 import getDatesDifference from '../../dates/timer';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {RootStateOrAny} from 'react-redux';
+import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 
 const Timer = () => {
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
 
-    const timer = useAppSelector((state: RootStateOrAny) => state.timerReducer);
-    const timerValues = useAppSelector((state: RootStateOrAny) => state.timerReducer.timerValues);
-    const inputValues = useAppSelector((state: RootStateOrAny) => state.timerReducer.timerInputsValues);
+    const timer = useSelector((state: RootStateOrAny) => state.timerReducer);
+    const timerValues = useSelector((state: RootStateOrAny) => state.timerReducer.timerValues);
+    const inputValues = useSelector((state: RootStateOrAny) => state.timerReducer.timerInputsValues);
 
     const formatNumbers = (num: number): string => num < 10 ? '0' + num : num.toString();
 
@@ -30,9 +29,12 @@ const Timer = () => {
         return () => {
             diff -= 1000;
 
-            const percentage: number = ((startValue / 1000 - diff / 1000)) * 100 / (startValue / 1000);
-
-            if (diff <= 0) dispatch(setButtonStatus('Cancel'));
+            const percentage: number = parseFloat((((startValue / 1000 - diff / 1000)) * 100 / (startValue / 1000)).toFixed(0));
+            console.log(percentage)
+            if (diff <= 0) {
+                clearInterval(timer.timerId);
+                dispatch(setButtonStatus('Cancel'));
+            }
 
             const hours: string = diff > 0 ? formatNumbers(Math.floor(diff / 1000 / 60 / 60) % 24) : '00';
             const minutes: string = diff > 0 ? formatNumbers(Math.floor(diff / 1000 / 60) % 60) : '00';
@@ -62,6 +64,7 @@ const Timer = () => {
 
         clearInterval(timer.timerId);
 
+        dispatch(setTimerId(null));
         dispatch(resetTimerValues('00'));
         dispatch(setButtonStatus('Start'));
         dispatch(setPercentage(0));
@@ -87,7 +90,7 @@ const Timer = () => {
     }
 
     useEffect(() => {
-        if (timer.percentage === 100) {
+        if (timer.percentage >= 100) {
             clearInterval(timer.timerId);
         }
     }, [timer.percentage])
