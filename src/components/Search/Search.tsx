@@ -10,18 +10,18 @@ import modes from '../../constants/searchInput';
 import {useAppSelector} from '../../hooks';
 
 const Search = () => {
-	const mode = useAppSelector((state: RootStateOrAny) => state.searchReducer.mode);
+    const mode: string = useAppSelector((state: RootStateOrAny) => state.searchReducer.mode);
 
-	const modeLinks = Object.values(modes).map((item, index) =>
-		<ModeLink key={index} currentMode={mode} mode={item.name}>{item.title}</ModeLink>);
+    const modeLinks = Object.values(modes).map((item: { name: string, title: string }, index: number) =>
+        <ModeLink key={index} currentMode={mode} mode={item.name}>{item.title}</ModeLink>);
 
-	return (
-		<div className={styles.search}>
-			<div className={styles.modeLinkWrapper}>{modeLinks}</div>
-			<SearchInput/>
-			<SearchList/>
-		</div>
-	)
+    return (
+        <div className={styles.search}>
+            <div className={styles.modeLinkWrapper}>{modeLinks}</div>
+            <SearchInput/>
+            <SearchList/>
+        </div>
+    )
 };
 
 export default Search;

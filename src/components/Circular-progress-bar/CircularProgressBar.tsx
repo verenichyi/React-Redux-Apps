@@ -7,8 +7,8 @@ import {sqSize, strokeWidth, radius, viewBox, dashArray} from '../../constants/c
 import {useAppSelector} from '../../hooks';
 
 const CircularProgressBar = () => {
-	const percentage = useAppSelector((state: RootStateOrAny) => state.timerReducer.percentage);
-	const dashOffset = dashArray - dashArray * parseFloat(percentage.toFixed(1)) / 100;
+	const percentage: number = useAppSelector((state: RootStateOrAny) => state.timerReducer.percentage);
+	const dashOffset: number = dashArray - dashArray * parseFloat(percentage.toFixed(1)) / 100;
 
 	return (
 		<svg

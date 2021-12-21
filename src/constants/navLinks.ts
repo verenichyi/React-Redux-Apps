@@ -1,4 +1,9 @@
-const navLinks = [
+interface INavLink {
+	title: string,
+	path: string
+}
+
+const navLinks: Array<INavLink> = [
 	{
 		title: 'Home',
 		path: '/'
