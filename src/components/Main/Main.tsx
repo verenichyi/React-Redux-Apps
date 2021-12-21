@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 
 import styles from './main.module.scss';
@@ -8,7 +8,7 @@ import Timer from '../Timer/Timer';
 import Home from '../Home/Home';
 import Search from '../Search/Search';
 
-const Main: FC = () => {
+const Main = () => {
 	return (
 		<main className={styles.main}>
 			<Routes>

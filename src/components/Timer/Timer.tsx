@@ -1,4 +1,4 @@
-import React, {FC, MouseEvent, ChangeEvent, useEffect} from 'react';
+import React, { MouseEvent, ChangeEvent, useEffect} from 'react';
 
 import styles from './timer.module.scss';
 
@@ -15,7 +15,7 @@ import getDatesDifference from '../../dates/timer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { RootStateOrAny } from 'react-redux';
 
-const Timer: FC = () => {
+const Timer = () => {
 	const dispatch = useAppDispatch();
 
 	const timer = useAppSelector((state: RootStateOrAny) => state.timerReducer);
