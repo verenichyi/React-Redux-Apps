@@ -1,0 +1,22 @@
+.link {
+  text-decoration: none;
+  border: 1px solid #fff;
+  padding: .5em 1em;
+  color: #fff;
+  margin: 0 5px;
+  transition: all .4s ease;
+
+  &:hover {
+    border: 1px solid rgba(245, 83, 162, 0.81);
+    color: rgba(245, 83, 162, 0.81);
+  }
+}
+
+.linkActive {
+  text-decoration: none;
+  border: 1px solid rgba(245, 83, 162, 0.81);
+  padding: .5em 1em;
+  color: rgba(245, 83, 162, 0.81);
+  margin: 0 5px;
+  transition: all .4s ease;
+}

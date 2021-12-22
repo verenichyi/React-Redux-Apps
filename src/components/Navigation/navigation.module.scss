@@ -1,0 +1,21 @@
+.nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 40px 0;
+}
+
+.navLink {
+  transition: all .3s ease;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+
+  &.activated {
+    color: rgba(245, 83, 162, 0.81);
+  }
+
+  &:hover {
+    color: rgba(245, 83, 162, 0.81);
+  }
+}
