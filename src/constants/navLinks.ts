@@ -21,7 +21,7 @@ const navLinks: Array<INavLink> = [
 		path: '/search'
 	},
 	{
-		title: 'Todo List',
+		title: 'Todo',
 		path: '/todo-list'
 	},
 ];

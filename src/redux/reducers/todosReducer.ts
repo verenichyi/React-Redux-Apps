@@ -1,36 +1,39 @@
 import {handleActions} from 'redux-actions';
 
-
-import {ITodosState} from '../../interfaces';
-import {addTodo, setTodoInputValue} from '../actionCreators';
+import {ITodo, ITodosState} from '../../interfaces';
+import {addTodo, addTodos, removeTodo, setTodoInputValue, toggleCheck} from '../actionCreators';
 
 const initialState: ITodosState = {
-	todos: [
-		{
-			'userId': 1,
-			'id': 1,
-			'title': 'delectus aut autem',
-			'completed': false
-		},
-		{
-			'userId': 1,
-			'id': 2,
-			'title': 'quis ut nam facilis et officia qui',
-			'completed': false
-		},
-		{
-			'userId': 1,
-			'id': 3,
-			'title': 'fugiat veniam minus',
-			'completed': false
-		},
-	],
+	todos: [],
 	inputValue: ''
 };
 
 const todosReducer = handleActions({
-	[addTodo]: (state: ITodosState, {payload}: any) => ({...state}),
+	[addTodo]: (state: ITodosState, {payload}: { payload: ITodo }) => {
+		return {
+			...state,
+			todos: [...state.todos, payload],
+			inputValue: ''
+		}
+	},
+	[removeTodo]: (state: ITodosState, {payload}: { payload: number }) => {
+		return {
+			...state,
+			todos: [...state.todos.filter((todo) => todo.id !== payload)]
+		}
+	},
+	[toggleCheck]: (state: ITodosState, {payload}: { payload: number }) => {
+		return {
+			...state,
+			todos: [...state.todos.map((todo) => {
+				if (todo.id === payload) todo.completed = !todo.completed;
+
+				return todo;
+			})]
+		}
+	},
 	[setTodoInputValue]: (state: ITodosState, {payload}: { payload: string }) => ({...state, inputValue: payload}),
+	[addTodos]: (state: ITodosState, {payload}: { payload: ITodo[] }) => ({...state, todos: [...payload]}),
 }, initialState);
 
 export default todosReducer;
