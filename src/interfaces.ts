@@ -43,3 +43,15 @@ export interface IPost {
     id: string,
     text: string
 }
+
+export interface ITodo {
+    'userId': number,
+    'id': number,
+    'title': string,
+    'completed': boolean
+}
+
+export interface ITodosState {
+    todos: ITodo[],
+    inputValue: string
+}
