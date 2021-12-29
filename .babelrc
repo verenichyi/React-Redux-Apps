@@ -6,7 +6,12 @@
 		"useBuiltIns": "entry"
 	  }
 	],
-	["@babel/preset-react", {"runtime": "automatic"}]
+	[
+	  "@babel/preset-react",
+	  {
+		"runtime": "automatic"
+	  }
+	]
   ],
   "plugins": [
 	"@babel/plugin-proposal-class-properties",
@@ -14,6 +19,17 @@
 	"@babel/plugin-proposal-export-namespace-from",
 	"@babel/plugin-proposal-optional-chaining",
 	"@babel/plugin-transform-runtime",
-	"@babel/plugin-transform-typescript"
+	"@babel/plugin-transform-typescript",
+	[
+	  "module-resolver",
+	  {
+		"root": [
+		  "./"
+		],
+		"alias": {
+		  "src": "./src"
+		}
+	  }
+	]
   ]
 }

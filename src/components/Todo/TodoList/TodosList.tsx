@@ -1,13 +1,19 @@
 import React from 'react';
 
-import {ITodo} from '../../../interfaces';
-import TodoItem from '../TodoItem/TodoItem';
+import styles from './TodoList.module.scss';
 
-const TodosList = ({todos}: { todos: ITodo[] }) => {
+import {ITodo} from 'src/interfaces';
+import TodoItem from 'src/components/Todo/TodoItem/TodoItem';
+
+type ListProps = {
+	todos: ITodo[]
+}
+
+const TodosList = ({todos}: ListProps) => {
 	const todoItems = todos.map((todo: ITodo) =>
 		<TodoItem key={todo.id} checked={todo.completed} id={todo.id}>{todo.title}</TodoItem>)
 
-	return <ul style={{width: '70vmax'}}>{todoItems}</ul>;
+	return <ul className={styles.list}>{todoItems}</ul>;
 };
 
 export default TodosList;

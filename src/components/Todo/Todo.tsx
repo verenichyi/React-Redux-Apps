@@ -3,10 +3,9 @@ import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 
 import styles from './todo.module.scss';
 
-import {setTodoInputValue} from '../../redux/actionCreators';
-import {ITodo} from '../../interfaces';
-import getTodos from '../asyncActions/getTodos';
-import postTodo from '../asyncActions/postTodo';
+import {setTodoInputValue} from 'src/redux/actionCreators';
+import {ITodo} from 'src/interfaces';
+import TodoAPI from 'src/asyncActions/TodoAPI';
 
 const TodosList = React.lazy(() => import('./TodoList/TodosList'));
 
@@ -19,13 +18,13 @@ const Todo = () => {
 	const handleSubmit = (event: FormEvent): void => {
 		event.preventDefault();
 
-		if (inputValue.trim()) dispatch(postTodo(inputValue));
+		if (inputValue.trim()) dispatch(TodoAPI.postTodo(inputValue));
 	};
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>): void => dispatch(setTodoInputValue(event.target.value));
 
 	useEffect(() => {
-		dispatch(getTodos());
+		dispatch(TodoAPI.getTodos());
 	}, [])
 
 	return (
@@ -34,7 +33,11 @@ const Todo = () => {
 				<input value={inputValue} onChange={handleChange} className={styles.addTodoInput} placeholder={'Add todo...'}
 							 type="text"/>
 			</form>
-			{todos.length ? <Suspense fallback={'Loading...'}><TodosList todos={todos}/></Suspense> : <p>No Todos!</p>}
+			{todos.length ?
+				<Suspense fallback={'Loading...'}>
+					<TodosList todos={todos}/>
+				</Suspense> :
+				<p>No Todos!</p>}
 		</div>
 	)
 };
