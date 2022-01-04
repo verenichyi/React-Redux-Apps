@@ -20,6 +20,10 @@ const navLinks: Array<INavLink> = [
 		title: 'Search',
 		path: '/search'
 	},
+	{
+		title: 'Todo',
+		path: '/todo-list'
+	},
 ];
 
 export default navLinks;

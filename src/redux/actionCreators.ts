@@ -10,3 +10,9 @@ export const setPercentage = createAction('SET_PERCENTAGE');
 export const setSearchValue = createAction('SET_SEARCH_VALUE');
 export const setMode = createAction('SET_MODE');
 export const setSearchInputValue = createAction('SET_SEARCH_INPUT_VALUE');
+
+export const addTodo = createAction('ADD_TODO');
+export const addTodos = createAction('ADD_TODOS');
+export const removeTodo = createAction('REMOVE_TODO');
+export const toggleCheck = createAction('TOGGLE_CHECK');
+export const setTodoInputValue = createAction('SET_TODO_INPUT_VALUE');
