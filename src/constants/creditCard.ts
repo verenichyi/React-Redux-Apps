@@ -10,3 +10,7 @@ export const imageUrls: IImages = {
 	diners: 'https://cdn4.iconfinder.com/data/icons/simple-peyment-methods/512/diners_club-512.png',
 	jcb: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JCB_logo.svg/1280px-JCB_logo.svg.png'
 }
+
+export const expYears: Array<string> = ['2022', '2023', '2024', '2025', '2026', '2027', '2028'];
+
+export const expMonths: Array<string> = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
