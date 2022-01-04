@@ -6,7 +6,6 @@
 	flex-direction: column;
 	align-items: center;
 	font-size: calc(10px + 2vmin);
-	line-height: calc(14px + 2vmin);
 	color: white;
 }
 

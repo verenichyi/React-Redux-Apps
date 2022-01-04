@@ -8,6 +8,7 @@ import Timer from '../Timer/Timer';
 import Home from '../Home/Home';
 import Search from '../Search/Search';
 import Todo from "../Todo/Todo";
+import CreditCard from "../CreditCard/CreditCard";
 
 const Main = () => {
 	return (
@@ -18,6 +19,7 @@ const Main = () => {
 				<Route path={'/progress-bar'} element={<CircularProgressBar/>}/>
 				<Route path={'/search'} element={<Search/>}/>
 				<Route path={'/todo-list'} element={<Todo/>}/>
+				<Route path={'/credit-card'} element={<CreditCard/>}/>
 			</Routes>
 		</main>
 	)

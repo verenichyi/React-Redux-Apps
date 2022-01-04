@@ -24,6 +24,10 @@ const navLinks: Array<INavLink> = [
 		title: 'Todo',
 		path: '/todo-list'
 	},
+	{
+		title: 'Credit card',
+		path: '/credit-card'
+	},
 ];
 
 export default navLinks;
