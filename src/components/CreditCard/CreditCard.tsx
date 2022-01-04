@@ -26,23 +26,34 @@ const CreditCard = () => {
 	}
 
 	const handleCardNum = (event: ChangeEvent<HTMLInputElement>): void => {
-		setCreditCardNum(event.target.value);
+		const value = event.target.value;
+		setCreditCardNum(value);
+
+		if(!value.trim()){
+			setCreditCardNum('1234 5678 9101 1112');
+		}
 	}
 
 	const handleCardHolder = (event: ChangeEvent<HTMLInputElement>): void => {
-		setCardHolder(event.target.value);
+		const value = event.target.value;
+		setCardHolder(value);
+
+		if(!value.trim()){
+			setCardHolder('Henry Cavill');
+		}
 	}
 
-	const handleExpMonth = (event: ChangeEvent<HTMLSelectElement>): void => {
-		setExpireMonth(event.target.value);
-	}
+	const handleExpMonth = (event: ChangeEvent<HTMLSelectElement>): void => setExpireMonth(event.target.value);
 
-	const handleExpYear = (event: ChangeEvent<HTMLSelectElement>): void => {
-		setExpireYear(event.target.value);
-	}
+	const handleExpYear = (event: ChangeEvent<HTMLSelectElement>): void => setExpireYear(event.target.value);
 
 	const handleCVV = (event: ChangeEvent<HTMLInputElement>): void => {
-		setCVV(event.target.value);
+		const value = event.target.value;
+		setCVV(value);
+
+		if(!value.trim()){
+			setCVV('123');
+		}
 	}
 
 	const cleaveOptions = {
