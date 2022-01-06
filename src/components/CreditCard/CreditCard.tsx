@@ -1,6 +1,7 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, FormEvent} from 'react';
 import Cleave from 'cleave.js/react';
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
+import CryptoJS from 'crypto-js';
 
 import styles from './CreditCard.module.scss';
 import {expMonths, expYears, imageUrls} from 'src/constants/creditCard';
@@ -21,6 +22,7 @@ const CreditCard = () => {
     const cardType = useSelector((state: RootStateOrAny) => state.cardReducer.cardType);
     const expireMonth = useSelector((state: RootStateOrAny) => state.cardReducer.expireMonth);
     const expireYear = useSelector((state: RootStateOrAny) => state.cardReducer.expireYear);
+    const cvv = useSelector((state: RootStateOrAny) => state.cardReducer.cvv);
 
     const expYearsItems = expYears.map((item => <option key={+item} value={+item}>{+item}</option>));
     const expMonthsItems = expMonths.map((item => <option key={+item} value={item}>{+item}</option>));
@@ -58,6 +60,13 @@ const CreditCard = () => {
 
     const handleExpYear = (event: ChangeEvent<HTMLSelectElement>): void => dispatch(setExpireYear(event.target.value));
 
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+
+        const hashCVV = CryptoJS.SHA256(cvv).toString(CryptoJS.enc.Hex);
+        console.log(hashCVV)
+    };
+
     const cleaveOptions = {
         creditCard: true,
         onCreditCardTypeChanged: handleType,
@@ -66,7 +75,7 @@ const CreditCard = () => {
 
     return (
         <div className={styles.creditCard}>
-            <form className={styles.form}>
+            <form onSubmit={handleSubmit} className={styles.form}>
                 <Card/>
 
                 <div className={`${styles.inputContainer} ${styles.mt}`}>
@@ -98,7 +107,8 @@ const CreditCard = () => {
                     </div>
                     <div className={styles.inputContainer}>
                         <h4>CVV</h4>
-                        <input onChange={handleCVV} maxLength={3} type="password" placeholder="CVV" className={styles.input}
+                        <input onChange={handleCVV} maxLength={3} type="password" placeholder="CVV"
+                               className={styles.input}
                                required/>
                     </div>
                 </div>
