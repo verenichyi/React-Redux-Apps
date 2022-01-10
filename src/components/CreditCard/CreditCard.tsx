@@ -24,7 +24,7 @@ const CreditCard = () => {
 	const handleType = (type: string): void => {
 		dispatch(setCardType(type));
 
-		const cardType: string | undefined = Object.keys(imageUrls).find((item) => item === type);
+		const cardType = Object.keys(imageUrls).find((item) => item === type);
 
 		if (cardType) dispatch(setCardTypeImage(imageUrls[type]));
 	};
@@ -33,26 +33,41 @@ const CreditCard = () => {
 		const value = event.target.value;
 		dispatch(setCreditCardNum(value));
 
-		if (!value.trim()) dispatch(setCreditCardNum('1234 5678 9101 1112'));
+		if (!value.trim()) {
+			dispatch(setCreditCardNum('1234 5678 9101 1112'));
+		}
 	};
 
 	const handleCardHolder = (event: ChangeEvent<HTMLInputElement>): void => {
 		const value = event.target.value;
 		dispatch(setCardHolder(value));
 
-		if (!value.trim()) dispatch(setCardHolder(''));
+		if (!value.trim()) {
+			dispatch(setCardHolder('Jason Smith'));
+		}
 	};
 
 	const handleCVV = (event: ChangeEvent<HTMLInputElement>): void => {
 		const value = event.target.value;
 		dispatch(setCVV(value));
 
-		if (!value.trim()) dispatch(setCVV('123'));
+		if (!value.trim()) {
+			dispatch(setCVV('123'));
+		}
 	};
 
-	const handleExpMonth = (event: ChangeEvent<HTMLSelectElement>): void => dispatch(setExpireMonth(event.target.value));
+	const handleExpiration = (event: ChangeEvent<HTMLSelectElement>): void => {
+		const value = event.target.value;
 
-	const handleExpYear = (event: ChangeEvent<HTMLSelectElement>): void => dispatch(setExpireYear(event.target.value));
+		switch (event.target.name) {
+			case 'month':
+				dispatch(setExpireMonth(value));
+				break;
+			case 'year':
+				dispatch(setExpireYear(value))
+				break;
+		}
+	};
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
@@ -96,18 +111,17 @@ const CreditCard = () => {
 
 				<div className={styles.details}>
 					<div className={styles.inputContainer}>
-						<h4>Exp Year</h4>
-						<select value={expireYear} onChange={handleExpYear} className={styles.input}>
-							{expYearsItems}
-						</select>
-					</div>
-					<div className={styles.inputContainer}>
 						<h4>Exp Month</h4>
-						<select value={expireMonth} onChange={handleExpMonth} className={styles.input}>
+						<select value={expireMonth} onChange={handleExpiration} name={'month'} className={styles.input}>
 							{expMonthsItems}
 						</select>
 					</div>
-
+					<div className={styles.inputContainer}>
+						<h4>Exp Year</h4>
+						<select value={expireYear} onChange={handleExpiration} name={'year'} className={styles.input}>
+							{expYearsItems}
+						</select>
+					</div>
 					<div className={styles.inputContainer}>
 						<h4>CVV</h4>
 						<input onChange={handleCVV} maxLength={3} type="password" placeholder="CVV"
