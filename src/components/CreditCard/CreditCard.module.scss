@@ -1,3 +1,5 @@
+@import "src/constants/colors";
+
 .creditCard {
   max-width: 1200px;
   margin: auto;
@@ -5,7 +7,7 @@
 }
 
 .form {
-  background: #fff;
+  background: $white;
   max-width: 500px;
   max-height: 100%;
   display: flex;
@@ -13,7 +15,7 @@
   flex-direction: column;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 3px 3px 40px #CE4B8D;
+  box-shadow: 3px 3px 40px $primaryPink;
   position: relative;
 }
 
@@ -22,14 +24,14 @@
   margin: 1rem 0;
   padding: 0.75rem 0.25rem;
   outline: none;
-  border: 1px solid #ccc;
+  border: 1px solid $gray;
   border-radius: 5px;
   position: relative;
   width: 100%;
 }
 
 h4 {
-  color: #555;
+  color: gray;
   font-size: .90rem;
 }
 
@@ -40,13 +42,13 @@ h4 {
 .inputContainer {
   position: relative;
   font-size: 1rem;
-  color: #333;
+  color: $gray;
 }
 
 .inputGrp {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  column-gap: .5rem;
 }
 
 .button {
@@ -56,8 +58,8 @@ h4 {
   outline: none;
   border: none;
   border-radius: 7px;
-  background-color: #171a1c;
-  color: #FFF;
+  background-color: $cardBack;
+  color: $white;
   letter-spacing: 1px;
   font-size: 1.25rem;
   cursor: pointer;
@@ -71,7 +73,7 @@ h4 {
     left: 0;
     height: 100%;
     width: 0;
-    background-color: #CE4B8D;
+    background-color: $primaryPink;
     z-index: -1;
     border-radius: 7px;
   }

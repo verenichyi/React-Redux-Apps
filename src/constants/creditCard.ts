@@ -11,6 +11,6 @@ export const imageUrls: IImages = {
 	jcb: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JCB_logo.svg/1280px-JCB_logo.svg.png'
 }
 
-export const expYears: Array<string> = ['2022', '2023', '2024', '2025', '2026', '2027', '2028'];
+export const expYears: Array<number> = [2022, 2023, 2024, 2025, 2026, 2027, 2028];
 
-export const expMonths: Array<string> = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+export const expMonths: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];

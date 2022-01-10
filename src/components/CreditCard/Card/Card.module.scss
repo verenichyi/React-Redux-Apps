@@ -1,6 +1,4 @@
-@mixin title {
-  color: #555555;
-}
+@import "src/constants/colors";
 
 .creditCard {
   max-width: 1200px;
@@ -23,9 +21,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #171a1c;
-  color: #f1f1f1;
-  filter: drop-shadow(1px 3px 10px #222);
+  background-color: $cardBack;
+  filter: drop-shadow(1px 3px 10px $cardShadow);
 
   animation: fadeIn .2s linear 1;
 }
@@ -74,9 +71,9 @@
 }
 
 .title {
-  @include title;
+  color: $gray;
 }
 
 .value {
-  color: #CE4B8D;
+  color: $primaryPink;
 }
