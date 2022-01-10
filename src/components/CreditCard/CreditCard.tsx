@@ -1,6 +1,6 @@
-import React, {ChangeEvent, FormEvent} from 'react';
+import React, {ChangeEvent, FormEvent, useMemo} from 'react';
 import Cleave from 'cleave.js/react';
-import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
+import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 import CryptoJS from 'crypto-js';
 
 import styles from './CreditCard.module.scss';
@@ -14,15 +14,12 @@ import {
 	setCVV,
 	setExpireMonth, setExpireYear
 } from 'src/redux/actionCreators';
-import Card from "./Card/Card";
+import Card from './Card/Card';
 
 const CreditCard = () => {
 	const dispatch = useDispatch();
 
 	const {cardType, expireMonth, expireYear, cvv} = useSelector((state: RootStateOrAny) => state.cardReducer);
-
-	const expYearsItems = expYears.map((item => <option key={+item} value={+item}>{+item}</option>));
-	const expMonthsItems = expMonths.map((item => <option key={+item} value={item}>{+item}</option>));
 
 	const handleType = (type: string): void => {
 		dispatch(setCardType(type));
@@ -69,6 +66,13 @@ const CreditCard = () => {
 		onCreditCardTypeChanged: handleType,
 		delimiter: ' '
 	};
+
+	const mapSelectOptions = (arr: number[]) => {
+		return arr.map((item => <option key={item} value={item}>{item}</option>));
+	}
+
+	const expYearsItems = useMemo(() => mapSelectOptions(expYears), [expYears]);
+	const expMonthsItems = useMemo(() => mapSelectOptions(expMonths), [expMonths]);
 
 	return (
 		<>
