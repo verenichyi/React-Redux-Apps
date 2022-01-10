@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FormEvent, useMemo} from 'react';
 import Cleave from 'cleave.js/react';
 import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
-import CryptoJS from 'crypto-js';
 
 import styles from './CreditCard.module.scss';
 import {expMonths, expYears, imageUrls} from 'src/constants/creditCard';
@@ -15,6 +14,7 @@ import {
 	setExpireMonth, setExpireYear
 } from 'src/redux/actionCreators';
 import Card from './Card/Card';
+import {encryptData} from '../../helpers/card';
 
 const CreditCard = () => {
 	const dispatch = useDispatch();
@@ -72,7 +72,7 @@ const CreditCard = () => {
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
 
-		const hashCVV = CryptoJS.SHA256(cvv).toString(CryptoJS.enc.Hex);
+		const hashCVV = encryptData(cvv);
 		console.log(hashCVV)
 	};
 
