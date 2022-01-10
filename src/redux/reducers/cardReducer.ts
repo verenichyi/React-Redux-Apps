@@ -16,7 +16,7 @@ const initialState = {
     creditCardNum: '1234 5678 9101 1112',
     cardType: '',
     cardTypeImage: 'https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png',
-    cardHolder: 'Henry Cavill',
+    cardHolder: 'Jason Smith',
     expireMonth: 'MM',
     expireYear: 'YYYY',
     cvv: '123',

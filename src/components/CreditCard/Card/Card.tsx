@@ -2,43 +2,44 @@ import React from "react";
 import {RootStateOrAny, useSelector} from "react-redux";
 
 import styles from "./Card.module.scss";
+import sticker from 'src/assets/card/chip.png';
 
 const Card = () => {
-    const creditCardNum = useSelector((state: RootStateOrAny) => state.cardReducer.creditCardNum);
-    const cardTypeImage = useSelector((state: RootStateOrAny) => state.cardReducer.cardTypeImage);
-    const cardHolder = useSelector((state: RootStateOrAny) => state.cardReducer.cardHolder);
-    const cvv = useSelector((state: RootStateOrAny) => state.cardReducer.cvv);
-    const expireMonth = useSelector((state: RootStateOrAny) => state.cardReducer.expireMonth);
-    const expireYear = useSelector((state: RootStateOrAny) => state.cardReducer.expireYear);
+	const {
+		creditCardNum,
+		cardTypeImage,
+		cardHolder,
+		cvv,
+		expireMonth,
+		expireYear
+	} = useSelector((state: RootStateOrAny) => state.cardReducer);
 
-    return (
-        <div className={styles.card}>
-            <div className={styles.header}>
-                <div className={styles.sticker}/>
-                <div>
-                    <img className={styles.logo} src={cardTypeImage} alt="Card logo"/>
-                </div>
-            </div>
-            <div className={styles.cardNumber}>
-                <div className={styles.title}>Card Number</div>
-                <div className={`${styles.cardNumber_value} ${styles.value}`}>{creditCardNum}</div>
-            </div>
-            <div className={styles.details}>
-                <div>
-                    <div className={styles.title}>Card Holder</div>
-                    <div className={styles.value}>{cardHolder}</div>
-                </div>
-                <div>
-                    <div className={styles.title}>Expiration</div>
-                    <div className={styles.value}>{expireMonth} / {expireYear}</div>
-                </div>
-                <div>
-                    <div className={styles.title}>CVV</div>
-                    <div className={styles.value}>{cvv}</div>
-                </div>
-            </div>
-        </div>
-    );
+	return (
+		<div className={styles.card}>
+			<div className={styles.header}>
+				<img className={styles.sticker} src={sticker} alt="Sticker"/>
+				<img className={styles.logo} src={cardTypeImage} alt="Card logo"/>
+			</div>
+			<div className={styles.cardNumber}>
+				<h5 className={styles.title}>Card Number</h5>
+				<p className={styles.value}>{creditCardNum}</p>
+			</div>
+			<div className={styles.details}>
+				<div>
+					<h5 className={styles.title}>Card Holder</h5>
+					<p className={styles.value}>{cardHolder}</p>
+				</div>
+				<div>
+					<h5 className={styles.title}>Expiration</h5>
+					<p className={styles.value}>{expireMonth} / {expireYear}</p>
+				</div>
+				<div>
+					<h5 className={styles.title}>CVV</h5>
+					<p className={styles.value}>{cvv}</p>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Card;
