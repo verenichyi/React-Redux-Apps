@@ -11,17 +11,23 @@ import {
 import visa from 'src/assets/card/visa.png';
 
 interface State {
-    [key: string]: string
+    creditCardNum: string,
+    cardType: string,
+    cardTypeImage: string,
+    cardHolder: string,
+    expireMonth: number | string,
+    expireYear: number | string,
+    cvv: number | string,
 }
 
 const initialState = {
-    creditCardNum: '1234 5678 9101 1112',
+    creditCardNum: '**** **** **** ****',
     cardType: '',
     cardTypeImage: visa,
-    cardHolder: 'Jason Smith',
+    cardHolder: 'Name Surname',
     expireMonth: 'MM',
     expireYear: 'YYYY',
-    cvv: '123',
+    cvv: '***',
 };
 
 const cardReducer = handleActions({
@@ -29,9 +35,9 @@ const cardReducer = handleActions({
     [setCardType]: (state: State, {payload}: { payload: string }) => ({...state, cardType: payload}),
     [setCardTypeImage]: (state: State, {payload}: { payload: string }) => ({...state, cardTypeImage: payload}),
     [setCardHolder]: (state: State, {payload}: { payload: string }) => ({...state, cardHolder: payload}),
-    [setExpireMonth]: (state: State, {payload}: { payload: string }) => ({...state, expireMonth: payload}),
-    [setExpireYear]: (state: State, {payload}: { payload: string }) => ({...state, expireYear: payload}),
-    [setCVV]: (state: State, {payload}: { payload: string }) => ({...state, cvv: payload}),
+    [setExpireMonth]: (state: State, {payload}: { payload: number | string }) => ({...state, expireMonth: payload}),
+    [setExpireYear]: (state: State, {payload}: { payload: number | string }) => ({...state, expireYear: payload}),
+    [setCVV]: (state: State, {payload}: { payload: number | string }) => ({...state, cvv: payload}),
 }, initialState);
 
 export default cardReducer;

@@ -29,43 +29,43 @@ const CreditCard = () => {
 		if (cardType) dispatch(setCardTypeImage(imageUrls[type]));
 	};
 
-	const handleCardNum = (event: ChangeEvent<HTMLInputElement>): void => {
-		const value = event.target.value;
-		dispatch(setCreditCardNum(value));
-
-		if (!value.trim()) {
-			dispatch(setCreditCardNum('1234 5678 9101 1112'));
-		}
-	};
-
-	const handleCardHolder = (event: ChangeEvent<HTMLInputElement>): void => {
-		const value = event.target.value;
-		dispatch(setCardHolder(value));
-
-		if (!value.trim()) {
-			dispatch(setCardHolder('Jason Smith'));
-		}
-	};
-
-	const handleCVV = (event: ChangeEvent<HTMLInputElement>): void => {
-		const value = event.target.value;
-		dispatch(setCVV(value));
-
-		if (!value.trim()) {
-			dispatch(setCVV('123'));
-		}
-	};
-
-	const handleExpiration = (event: ChangeEvent<HTMLSelectElement>): void => {
+	const handleFormItem = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>): void => {
 		const value = event.target.value;
 
 		switch (event.target.name) {
+			case 'cvv':
+				dispatch(setCVV(value));
+				if (!value.trim()) {
+					dispatch(setCVV('***'));
+				}
+				break;
+
+			case 'cardholder':
+				dispatch(setCardHolder(value));
+				if (!value.trim()) {
+					dispatch(setCardHolder('Name Surname'));
+				}
+				break;
+
+			case 'number':
+				dispatch(setCreditCardNum(value));
+				if (!value.trim()) {
+					dispatch(setCreditCardNum('**** **** **** ****'));
+				}
+				break;
+
 			case 'month':
 				dispatch(setExpireMonth(value));
+				if (!value.trim()) {
+					dispatch(setExpireMonth('MM'));
+				}
 				break;
+
 			case 'year':
 				dispatch(setExpireYear(value))
-				break;
+				if (!value.trim()) {
+					dispatch(setExpireYear('YYYY'));
+				}
 		}
 	};
 
@@ -74,12 +74,6 @@ const CreditCard = () => {
 
 		const hashCVV = encryptData(cvv);
 		console.log(hashCVV)
-	};
-
-	const cleaveOptions = {
-		creditCard: true,
-		onCreditCardTypeChanged: handleType,
-		delimiter: ' '
 	};
 
 	const mapSelectOptions = (arr: number[]) => {
@@ -98,33 +92,38 @@ const CreditCard = () => {
 					<h4>Enter card number</h4>
 					<Cleave
 						className={styles.input}
-						options={cleaveOptions}
-						onChange={handleCardNum}
+						options={{
+							creditCard: true,
+							onCreditCardTypeChanged: handleType,
+							delimiter: ' '
+						}}
+						name={'number'}
+						onChange={handleFormItem}
 						placeholder="Please enter your credit card number"
 					/>
 				</div>
 				<div className={styles.inputContainer}>
 					<h4>Card Holder</h4>
-					<input onChange={handleCardHolder} className={styles.input} type="text"
+					<input onChange={handleFormItem} className={styles.input} name={'cardholder'} type="text"
 								 placeholder="Please enter your full name" required/>
 				</div>
 
 				<div className={styles.details}>
 					<div className={styles.inputContainer}>
 						<h4>Exp Month</h4>
-						<select value={expireMonth} onChange={handleExpiration} name={'month'} className={styles.input}>
+						<select value={expireMonth} onChange={handleFormItem} name={'month'} className={styles.input}>
 							{expMonthsItems}
 						</select>
 					</div>
 					<div className={styles.inputContainer}>
 						<h4>Exp Year</h4>
-						<select value={expireYear} onChange={handleExpiration} name={'year'} className={styles.input}>
+						<select value={expireYear} onChange={handleFormItem} name={'year'} className={styles.input}>
 							{expYearsItems}
 						</select>
 					</div>
 					<div className={styles.inputContainer}>
 						<h4>CVV</h4>
-						<input onChange={handleCVV} maxLength={3} type="password" placeholder="CVV"
+						<input onChange={handleFormItem} maxLength={3} type="password" name={'cvv'} placeholder="CVV"
 									 className={styles.input}
 									 required/>
 					</div>
