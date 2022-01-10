@@ -8,6 +8,8 @@ import {
     setExpireYear
 } from "../actionCreators";
 
+import visa from 'src/assets/card/visa.png';
+
 interface State {
     [key: string]: string
 }
@@ -15,7 +17,7 @@ interface State {
 const initialState = {
     creditCardNum: '1234 5678 9101 1112',
     cardType: '',
-    cardTypeImage: 'https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png',
+    cardTypeImage: visa,
     cardHolder: 'Jason Smith',
     expireMonth: 'MM',
     expireYear: 'YYYY',
