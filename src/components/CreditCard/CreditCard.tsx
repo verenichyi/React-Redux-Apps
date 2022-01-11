@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useMemo} from 'react';
+import React, {ChangeEvent, FormEvent, useMemo, useState} from 'react';
 import Cleave from 'cleave.js/react';
 import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
 
@@ -15,8 +15,12 @@ import {
 } from 'src/redux/actionCreators';
 import Card from './Card/Card';
 import {encryptData} from '../../helpers/card';
+import Dropdown from "../Dropdown/Dropdown";
 
 const CreditCard = () => {
+	const [selectedMonth, setSelectedMonth] = useState(1);
+	const [selectedYear, setSelectedYear] = useState(2022);
+
 	const dispatch = useDispatch();
 
 	const {cardType, expireMonth, expireYear, cvv} = useSelector((state: RootStateOrAny) => state.cardReducer);
@@ -54,18 +58,18 @@ const CreditCard = () => {
 				}
 				break;
 
-			case 'month':
-				dispatch(setExpireMonth(value));
-				if (!value.trim()) {
-					dispatch(setExpireMonth('MM'));
-				}
-				break;
-
-			case 'year':
-				dispatch(setExpireYear(value))
-				if (!value.trim()) {
-					dispatch(setExpireYear('YYYY'));
-				}
+			// case 'month':
+			// 	dispatch(setExpireMonth(value));
+			// 	if (!value.trim()) {
+			// 		dispatch(setExpireMonth('MM'));
+			// 	}
+			// 	break;
+			//
+			// case 'year':
+			// 	dispatch(setExpireYear(value))
+			// 	if (!value.trim()) {
+			// 		dispatch(setExpireYear('YYYY'));
+			// 	}
 		}
 	};
 
@@ -76,12 +80,8 @@ const CreditCard = () => {
 		console.log(hashCVV)
 	};
 
-	const mapSelectOptions = (arr: number[]) => {
-		return arr.map((item => <option key={item} value={item}>{item}</option>));
-	}
-
-	const expYearsItems = useMemo(() => mapSelectOptions(expYears), [expYears]);
-	const expMonthsItems = useMemo(() => mapSelectOptions(expMonths), [expMonths]);
+	const expYearsItems = useMemo(() => expYears, [expYears]);
+	const expMonthsItems = useMemo(() => expMonths, [expMonths]);
 
 	return (
 		<>
@@ -111,16 +111,14 @@ const CreditCard = () => {
 				<div className={styles.details}>
 					<div className={styles.inputContainer}>
 						<h4>Exp Month</h4>
-						<select value={expireMonth} onChange={handleFormItem} name={'month'} className={styles.input}>
-							{expMonthsItems}
-						</select>
+						<Dropdown selected={selectedMonth} setSelected={setSelectedMonth} options={expMonthsItems}/>
 					</div>
 					<div className={styles.inputContainer}>
 						<h4>Exp Year</h4>
-						<select value={expireYear} onChange={handleFormItem} name={'year'} className={styles.input}>
-							{expYearsItems}
-						</select>
+						<Dropdown selected={selectedYear} setSelected={setSelectedYear} options={expYearsItems}/>
 					</div>
+
+
 					<div className={styles.inputContainer}>
 						<h4>CVV</h4>
 						<input onChange={handleFormItem} maxLength={3} type="password" name={'cvv'} placeholder="CVV"

@@ -1,13 +1,13 @@
 @import "src/colors";
 
 .form {
-  width: 25%;
+  width: 35%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   padding: 1em;
-  border-radius: 10px;
+  border-radius: .6em;
   background: $white;
   box-shadow: 3px 3px 40px $primaryPink;
 }
@@ -38,7 +38,7 @@ h4 {
   padding: 0.5em;
   outline: none;
   border: 1px solid $gray;
-  border-radius: 5px;
+  border-radius: .4em;
   position: relative;
   width: 100%;
 }
@@ -50,7 +50,7 @@ h4 {
   margin-top: 1em;
   outline: none;
   border: none;
-  border-radius: 7px;
+  border-radius: .5em;
   background-color: $cardBack;
   color: $white;
   cursor: pointer;
@@ -58,5 +58,11 @@ h4 {
 
   &:hover {
     background-color: $primaryPink;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .form {
+    width: 50%;
   }
 }
