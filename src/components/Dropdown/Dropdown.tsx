@@ -1,24 +1,23 @@
-import React, { useState} from "react";
+import React, {useState} from 'react';
 
 import styles from './Dropdown.module.scss';
 
 interface Props {
 	selected: number,
-	setSelected: (option: number) => void,
+	setSelected: (name: string, option: number) => void,
 	options: number[],
 	name?: string
 }
 
-
-const Dropdown = ({options, selected, setSelected}: Props) => {
+const Dropdown = ({options, selected, setSelected, name}: Props) => {
 	const [isActive, setIsActive] = useState(false);
 
 	const handleDropdown = () => {
 		setIsActive(!isActive);
 	};
 
-	const handleOption = (option: number) => {
-		setSelected(option);
+	const handleOption = (name: string, option: number): void => {
+		setSelected(name, option);
 		setIsActive(false);
 	};
 
@@ -32,7 +31,7 @@ const Dropdown = ({options, selected, setSelected}: Props) => {
 				<ul className={styles.options}>
 					{options.map((option) =>
 						<li data-name={name} className={styles.option} key={option}
-								onClick={() => handleOption(option)}>{option}</li>)}
+								onClick={(event) => handleOption(event.currentTarget.dataset.name, option)}>{option}</li>)}
 				</ul>
 			)}
 		</div>

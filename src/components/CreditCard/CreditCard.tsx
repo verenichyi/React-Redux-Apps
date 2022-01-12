@@ -15,15 +15,16 @@ import {
 } from 'src/redux/actionCreators';
 import Card from './Card/Card';
 import {encryptData} from '../../helpers/card';
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from '../Dropdown/Dropdown';
 
 const CreditCard = () => {
-	const [selectedMonth, setSelectedMonth] = useState(1);
-	const [selectedYear, setSelectedYear] = useState(2022);
+	// const [selectedMonth, setSelectedMonth] = useState(1);
+	// const [selectedYear, setSelectedYear] = useState(2022);
 
 	const dispatch = useDispatch();
 
-	const {cardType, expireMonth, expireYear, cvv} = useSelector((state: RootStateOrAny) => state.cardReducer);
+	const {cardType,cardHolder,creditCardNum, expireMonth, expireYear, cvv} = useSelector((state: RootStateOrAny) => state.cardReducer);
+
 
 	const handleType = (type: string): void => {
 		dispatch(setCardType(type));
@@ -46,9 +47,6 @@ const CreditCard = () => {
 
 			case 'cardholder':
 				dispatch(setCardHolder(value));
-				if (!value.trim()) {
-					dispatch(setCardHolder('Name Surname'));
-				}
 				break;
 
 			case 'number':
@@ -57,19 +55,17 @@ const CreditCard = () => {
 					dispatch(setCreditCardNum('**** **** **** ****'));
 				}
 				break;
+		}
+	};
 
-			// case 'month':
-			// 	dispatch(setExpireMonth(value));
-			// 	if (!value.trim()) {
-			// 		dispatch(setExpireMonth('MM'));
-			// 	}
-			// 	break;
-			//
-			// case 'year':
-			// 	dispatch(setExpireYear(value))
-			// 	if (!value.trim()) {
-			// 		dispatch(setExpireYear('YYYY'));
-			// 	}
+	const handleDropdown = (name: string, value: number): void => {
+		switch (name) {
+			case 'month':
+				dispatch(setExpireMonth(value));
+				break;
+
+			case 'year':
+				dispatch(setExpireYear(value))
 		}
 	};
 
@@ -98,30 +94,30 @@ const CreditCard = () => {
 							delimiter: ' '
 						}}
 						name={'number'}
+						value={creditCardNum}
 						onChange={handleFormItem}
 						placeholder="Please enter your credit card number"
 					/>
 				</div>
 				<div className={styles.inputContainer}>
 					<h4>Card Holder</h4>
-					<input onChange={handleFormItem} className={styles.input} name={'cardholder'} type="text"
+					<input value={cardHolder} onChange={handleFormItem} className={styles.input} name={'cardholder'} type="text"
 								 placeholder="Please enter your full name" required/>
 				</div>
 
 				<div className={styles.details}>
 					<div className={styles.inputContainer}>
 						<h4>Exp Month</h4>
-						<Dropdown selected={selectedMonth} setSelected={setSelectedMonth} options={expMonthsItems}/>
+						<Dropdown name={'month'} selected={expireMonth} setSelected={handleDropdown} options={expMonthsItems}/>
 					</div>
 					<div className={styles.inputContainer}>
 						<h4>Exp Year</h4>
-						<Dropdown selected={selectedYear} setSelected={setSelectedYear} options={expYearsItems}/>
+						<Dropdown name={'year'} selected={expireYear} setSelected={handleDropdown} options={expYearsItems}/>
 					</div>
-
 
 					<div className={styles.inputContainer}>
 						<h4>CVV</h4>
-						<input onChange={handleFormItem} maxLength={3} type="password" name={'cvv'} placeholder="CVV"
+						<input value={cvv} onChange={handleFormItem} maxLength={3} type="password" name={'cvv'} placeholder="CVV"
 									 className={styles.input}
 									 required/>
 					</div>

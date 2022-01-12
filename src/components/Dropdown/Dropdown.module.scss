@@ -1,64 +1,70 @@
 @import "src/colors";
 
 .dropdown {
-  position: relative;
+	position: relative;
 }
 
 .btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  margin: .5em 0;
-  padding: 0.5em;
-  border: 1px solid $gray;
-  border-radius: .4em;
-  outline: none;
-  cursor: pointer;
-  text-align: left;
-  font-size: .8em;
-  background-color: $white;
-  color: $gray
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	width: 100%;
+	margin: .5em 0;
+	padding: 0.5em;
+	border: 1px solid $gray;
+	border-radius: .4em;
+	outline: none;
+	cursor: pointer;
+	text-align: left;
+	font-size: .8em;
+	background-color: $white;
+	color: $gray
 }
 
 .icon {
-  position: relative;
+	position: relative;
 
-  &:after {
-    transition: all .3s ease;
-    content: '';
-    position: absolute;
-    right: 100%;
-    border: 8px solid transparent;
-    border-top: 8px solid $gray;
-  }
+	&:after {
+		transition: all .3s ease;
+		content: '';
+		position: absolute;
+		right: 100%;
+		border: 8px solid transparent;
+		border-top: 8px solid $gray;
+	}
 
-  &.active {
-    &:after {
-      transform: rotate(180deg) translateY(50%);
-    }
-  }
+	&.active {
+		&:after {
+			transform: rotate(180deg) translateY(50%);
+		}
+	}
 }
 
 .options {
-  text-align: left;
-  position: absolute;
-  width: 100%;
-  top: 110%;
-  left: 0;
-  box-shadow: 1px 1px 15px $primaryPink;
-  border-radius: .4em;
-  background-color: $white;
+	text-align: left;
+	position: absolute;
+	width: 100%;
+	bottom: 110%;
+	left: 0;
+	box-shadow: 1px 1px 15px $primaryPink;
+	border-radius: .4em;
+	background-color: $white;
+	overflow-y: scroll;
+	max-height: 20vh;
+
+	&::-webkit-scrollbar {
+		width: 0;
+	}
 }
 
 .option {
-  transition: all .3s ease;
-  cursor: pointer;
-  padding: 0.5em;
-  border-radius: .4em;
+	transition: all .3s ease;
+	cursor: pointer;
+	padding: 0.5em;
+	border-radius: .4em;
 
-  &:hover {
-    background-color: $selectBack;
-  }
+	&:hover {
+		background-color: $selectBack;
+	}
 }

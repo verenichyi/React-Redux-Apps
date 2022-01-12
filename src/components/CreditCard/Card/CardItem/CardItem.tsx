@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./CardItem.module.scss";
+import styles from './CardItem.module.scss';
 
 interface Props {
 	title: string,
@@ -11,7 +11,7 @@ const CardItem = ({title, value}: Props) => {
 	return (
 		<div>
 			<h5 className={styles.title}>{title}</h5>
-			<p className={styles.value}>{value}</p>
+			<p className={styles.value}>{value ? value : ''}</p>
 		</div>
 	);
 };
