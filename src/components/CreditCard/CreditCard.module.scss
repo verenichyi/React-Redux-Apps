@@ -12,37 +12,6 @@
   box-shadow: 3px 3px 40px $primaryPink;
 }
 
-h4 {
-  color: gray;
-}
-
-.details {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
-  .inputContainer {
-    width: 30%;
-  }
-}
-
-.inputContainer {
-  width: 100%;
-  color: $gray;
-}
-
-.input,
-.select {
-  font-size: .8em;
-  margin: .5em 0;
-  padding: 0.5em;
-  outline: none;
-  border: 1px solid $gray;
-  border-radius: .4em;
-  position: relative;
-  width: 100%;
-}
-
 .button {
   font-size: .8em;
   width: 100%;
