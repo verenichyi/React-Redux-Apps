@@ -23,3 +23,18 @@ export const imageUrls: IImages = {
 export const expYears: Array<number> = generateNumbersArray(2022, 2030);
 
 export const expMonths: Array<number> = generateNumbersArray(1, 12);
+
+export const formItems = {
+	cardNumber: {
+		name: 'number',
+		placeholder: 'Card Number'
+	},
+	cardHolder: {
+		name: 'cardholder',
+		placeholder: 'Card Holder'
+	},
+	cvv: {
+		name: 'cvv',
+		placeholder: 'CVV'
+	},
+}
