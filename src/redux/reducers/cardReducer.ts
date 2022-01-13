@@ -1,11 +1,6 @@
 import {handleActions} from 'redux-actions';
 import {
-	setCardHolder,
-	setCardType,
-	setCardTypeImage,
-	setCreditCardNum, setCVV,
-	setExpireMonth,
-	setExpireYear
+	cardActions,
 } from '../actionCreators';
 
 import visa from 'src/assets/card/visa.png';
@@ -31,13 +26,19 @@ const initialState = {
 };
 
 const cardReducer = handleActions({
-	[setCreditCardNum]: (state: State, {payload}: { payload: string }) => ({...state, creditCardNum: payload}),
-	[setCardType]: (state: State, {payload}: { payload: string }) => ({...state, cardType: payload}),
-	[setCardTypeImage]: (state: State, {payload}: { payload: string }) => ({...state, cardTypeImage: payload}),
-	[setCardHolder]: (state: State, {payload}: { payload: string }) => ({...state, cardHolder: payload}),
-	[setExpireMonth]: (state: State, {payload}: { payload: number }) => ({...state, expireMonth: payload}),
-	[setExpireYear]: (state: State, {payload}: { payload: number }) => ({...state, expireYear: payload}),
-	[setCVV]: (state: State, {payload}: { payload: number }) => ({...state, cvv: payload}),
+	[cardActions.setCreditCardNum]: (state: State, {payload}: { payload: string }) => ({
+		...state,
+		creditCardNum: payload
+	}),
+	[cardActions.setCardType]: (state: State, {payload}: { payload: string }) => ({...state, cardType: payload}),
+	[cardActions.setCardTypeImage]: (state: State, {payload}: { payload: string }) => ({
+		...state,
+		cardTypeImage: payload
+	}),
+	[cardActions.setCardHolder]: (state: State, {payload}: { payload: string }) => ({...state, cardHolder: payload}),
+	[cardActions.setExpireMonth]: (state: State, {payload}: { payload: number }) => ({...state, expireMonth: payload}),
+	[cardActions.setExpireYear]: (state: State, {payload}: { payload: number }) => ({...state, expireYear: payload}),
+	[cardActions.setCVV]: (state: State, {payload}: { payload: number }) => ({...state, cvv: payload}),
 }, initialState);
 
 export default cardReducer;
