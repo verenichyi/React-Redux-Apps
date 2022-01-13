@@ -1,4 +1,4 @@
-@import "src/colors";
+@import 'src/colors';
 
 .form {
   width: 35%;
@@ -7,30 +7,30 @@
   flex-direction: column;
   align-items: center;
   padding: 1em;
-  border-radius: .6em;
+  border-radius: 0.6em;
   background: $white;
   box-shadow: 3px 3px 40px $primaryPink;
 }
 
 .button {
-  font-size: .8em;
+  font-size: 0.8em;
   width: 100%;
-  padding: .8em 1.6em;
+  padding: 0.8em 1.6em;
   margin-top: 1em;
   outline: none;
   border: none;
-  border-radius: .5em;
+  border-radius: 0.5em;
   background-color: $cardBack;
   color: $white;
   cursor: pointer;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
     background-color: $primaryPink;
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .form {
     width: 50%;
   }

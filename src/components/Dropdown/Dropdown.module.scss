@@ -1,4 +1,4 @@
-@import "src/colors";
+@import 'src/colors';
 
 .dropdown {
   position: relative;
@@ -11,28 +11,28 @@
   align-items: center;
   position: relative;
   width: 100%;
-  margin: .3em 0;
+  margin: 0.3em 0;
   padding: 0.4em;
-  border-radius: .4em;
+  border-radius: 0.4em;
   outline: none;
   border: none;
   cursor: pointer;
   text-align: left;
-  font-size: .6em;
+  font-size: 0.6em;
   background-color: $white;
-  color: $gray
+  color: $gray;
 }
 
 .icon {
   position: relative;
 
   &:after {
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     content: '';
     position: absolute;
     right: 100%;
-    border: .3em solid transparent;
-    border-top: .3em solid $gray;
+    border: 0.3em solid transparent;
+    border-top: 0.3em solid $gray;
   }
 
   &.active {
@@ -49,11 +49,11 @@
   bottom: 110%;
   left: 0;
   box-shadow: 1px 1px 15px $primaryPink;
-  border-radius: .4em;
+  border-radius: 0.4em;
   background-color: $white;
   overflow-y: scroll;
   max-height: 20vh;
-  font-size: .6em;
+  font-size: 0.6em;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -61,10 +61,10 @@
 }
 
 .option {
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
   padding: 0.4em;
-  border-radius: .4em;
+  border-radius: 0.4em;
   color: $gray;
 
   &:hover {
