@@ -36,7 +36,11 @@
   padding: 0.4em;
   outline: none;
   border-radius: 0.4em;
-  border: none;
+  border: 2px solid transparent;
+
+  &.error{
+    border: 2px solid $red;
+  }
 }
 
 .expiration {
@@ -46,7 +50,7 @@
 }
 
 .cvv {
-  width: 12%;
+  width: 13%;
 }
 
 .divider {

@@ -23,6 +23,9 @@ const Card = () => {
     expireMonth,
     expireYear,
     cvv,
+    isAllFieldsFilled,
+    isCardNumValid,
+    isCardHolderValid,
   } = useSelector((state: RootStateOrAny) => state.cardReducer);
 
   const {
@@ -80,7 +83,9 @@ const Card = () => {
         <img className={styles.logo} src={cardTypeImage} alt="Card logo" />
       </div>
       <Cleave
-        className={styles.input}
+        className={`${styles.input} ${
+          !isAllFieldsFilled || !isCardNumValid ? styles.error : ''
+        }`}
         options={{
           creditCard: true,
           onCreditCardTypeChanged: handleType,
@@ -94,11 +99,12 @@ const Card = () => {
       <input
         value={cardHolder}
         onChange={handleFormItem}
-        className={styles.input}
+        className={`${styles.input} ${
+          !isAllFieldsFilled || !isCardHolderValid ? styles.error : ''
+        }`}
         name={formItems.cardHolder.name}
         type="text"
         placeholder={formItems.cardHolder.placeholder}
-        required
       />
       <div className={styles.details}>
         <div className={styles.expiration}>
@@ -120,11 +126,13 @@ const Card = () => {
           value={cvv}
           onChange={handleFormItem}
           maxLength={3}
+          minLength={3}
           type="password"
           name={formItems.cvv.name}
           placeholder={formItems.cvv.placeholder}
-          className={`${styles.input} ${styles.cvv}`}
-          required
+          className={`${styles.input} ${
+            !isAllFieldsFilled ? styles.error : ''
+          } ${styles.cvv}`}
         />
       </div>
     </div>

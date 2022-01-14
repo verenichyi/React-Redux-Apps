@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions';
 import { cardActions } from '../actionCreators';
 
 import visa from 'src/assets/card/visa.png';
+import {errorTexts, formItems} from "../../constants/creditCard";
 
 interface State {
   creditCardNum: string;
@@ -11,6 +12,11 @@ interface State {
   expireMonth: number;
   expireYear: number;
   cvv: null;
+  isCardNumValid: boolean;
+  isCardHolderValid: boolean;
+  isCVVValid: boolean;
+  isAllFieldsFilled: boolean;
+  errorText: string;
 }
 
 const initialState = {
@@ -21,6 +27,10 @@ const initialState = {
   expireMonth: 1,
   expireYear: 2022,
   cvv: '',
+  isCardNumValid: true,
+  isCardHolderValid: true,
+  isAllFieldsFilled: true,
+  errorText: errorTexts.allFields,
 };
 
 const cardReducer = handleActions(
@@ -58,6 +68,34 @@ const cardReducer = handleActions(
     [cardActions.setCVV]: (state: State, { payload }: { payload: number }) => ({
       ...state,
       cvv: payload,
+    }),
+    [cardActions.setIsCardNumValid]: (
+      state: State,
+      { payload }: { payload: boolean }
+    ) => ({
+      ...state,
+      isCardNumValid: payload,
+    }),
+    [cardActions.setIsCardHolderValid]: (
+      state: State,
+      { payload }: { payload: boolean }
+    ) => ({
+      ...state,
+      isCardHolderValid: payload,
+    }),
+    [cardActions.setIsAllFieldsFilled]: (
+      state: State,
+      { payload }: { payload: boolean }
+    ) => ({
+      ...state,
+      isAllFieldsFilled: payload,
+    }),
+    [cardActions.setErrorText]: (
+      state: State,
+      { payload }: { payload: boolean }
+    ) => ({
+      ...state,
+      errorText: payload,
     }),
   },
   initialState

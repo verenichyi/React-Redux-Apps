@@ -10,6 +10,10 @@
   border-radius: 0.6em;
   background: $white;
   box-shadow: 3px 3px 40px $primaryPink;
+
+  @media screen and (max-width: 768px) {
+    width: 50%;
+  }
 }
 
 .button {
@@ -30,8 +34,12 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .form {
-    width: 50%;
-  }
+.error {
+  text-align: center;
+  width: 80%;
+  padding: 0.4em 1em;
+  color: $red;
+  font-weight: 500;
+  border: 2px solid $red;
+  border-radius: 8px;
 }

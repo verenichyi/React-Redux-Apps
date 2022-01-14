@@ -1,5 +1,4 @@
 import {createAction} from 'redux-actions';
-import useActions from "../hooks/useActions";
 
 export const setTimerId = createAction('SET_TIMER_ID');
 export const setButtonStatus = createAction('SET_BUTTON_STATUS');
@@ -26,4 +25,8 @@ export const cardActions = {
 	setExpireMonth: createAction('SET_EXPIRE_MONTH'),
 	setExpireYear: createAction('SET_EXPIRE_YEAR'),
 	setCVV: createAction('SET_CVV'),
+	setIsCardNumValid: createAction('SET_IS_CARD_NUM_VALID'),
+	setIsCardHolderValid: createAction('SET_IS_CARD_HOLDER_VALID'),
+	setIsAllFieldsFilled: createAction('SET_IS_ALL_FIELDS_FILLED'),
+	setErrorText: createAction('SET_ERROR_TEXT'),
 }

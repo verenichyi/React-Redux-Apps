@@ -15,12 +15,12 @@
   padding: 0.4em;
   border-radius: 0.4em;
   outline: none;
-  border: none;
   cursor: pointer;
   text-align: left;
   font-size: 0.6em;
   background-color: $white;
   color: $gray;
+  border: 2px solid transparent;
 }
 
 .icon {
