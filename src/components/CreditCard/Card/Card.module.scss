@@ -2,12 +2,16 @@
 
 .card {
   text-align: left;
-  width: 80%;
-  border-radius: 0.5em;
+  width: 95%;
+  border-radius: 8px;
   padding: 1em;
   background-color: $cardBack;
   box-shadow: 1px 3px 10px $cardShadow;
   margin-bottom: 1em;
+
+  @media screen and (max-width: 480px) {
+    font-size: 1.5em;
+  }
 }
 
 .header {
@@ -16,10 +20,10 @@
   padding-bottom: 0.6em;
 }
 
-.sticker,
-.logo {
+.logo,
+.sticker {
   width: 15%;
-  height: 14%;
+  height: 15%;
 }
 
 .details {
@@ -33,12 +37,16 @@
   color: $gray;
   font-size: 0.6em;
   margin: 0.3em 0;
-  padding: 0.4em;
+  padding: 0.3em;
   outline: none;
-  border-radius: 0.4em;
+  border-radius: 8px;
   border: 2px solid transparent;
 
-  &.error{
+  @media screen and (max-width: 768px) {
+    border-radius: 4px;
+  }
+
+  &.error {
     border: 2px solid $red;
   }
 }
@@ -50,7 +58,7 @@
 }
 
 .cvv {
-  width: 13%;
+  width: 15%;
 }
 
 .divider {

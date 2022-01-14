@@ -12,8 +12,8 @@
   position: relative;
   width: 100%;
   margin: 0.3em 0;
-  padding: 0.4em;
-  border-radius: 0.4em;
+  padding: 0.3em;
+  border-radius: 8px;
   outline: none;
   cursor: pointer;
   text-align: left;
@@ -21,6 +21,10 @@
   background-color: $white;
   color: $gray;
   border: 2px solid transparent;
+
+  @media screen and (max-width: 768px) {
+    border-radius: 4px;
+  }
 }
 
 .icon {
@@ -49,11 +53,15 @@
   bottom: 110%;
   left: 0;
   box-shadow: 1px 1px 15px $primaryPink;
-  border-radius: 0.4em;
+  border-radius: 8px;
   background-color: $white;
   overflow-y: scroll;
   max-height: 20vh;
   font-size: 0.6em;
+
+  @media screen and (max-width: 768px) {
+    border-radius: 4px;
+  }
 
   &::-webkit-scrollbar {
     width: 0;
@@ -63,7 +71,7 @@
 .option {
   transition: all 0.3s ease;
   cursor: pointer;
-  padding: 0.4em;
+  padding: 0.3em;
   border-radius: 0.4em;
   color: $gray;
 
