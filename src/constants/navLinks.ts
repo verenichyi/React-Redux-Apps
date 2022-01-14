@@ -1,18 +1,4 @@
-interface INavLink {
-	title: string,
-	path: string
-}
-
-interface ILinks {
-	home: INavLink,
-	timer: INavLink,
-	progressBar: INavLink,
-	search: INavLink,
-	todo: INavLink,
-	card: INavLink,
-}
-
-const navLinks: ILinks = {
+const navLinks = {
 	home: {
 		title: 'Home',
 		path: '/'
