@@ -1,8 +1,8 @@
 import { handleActions } from 'redux-actions';
-import { cardActions } from '../actionCreators';
 
+import { cardActions } from 'src/redux/actionCreators';
 import visa from 'src/assets/card/visa.png';
-import {errorTexts, formItems} from "../../constants/creditCard";
+import { errorTexts } from 'src/constants/creditCard';
 
 interface State {
   creditCardNum: string;

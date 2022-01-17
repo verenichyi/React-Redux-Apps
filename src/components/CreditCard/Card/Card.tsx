@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, SyntheticEvent } from 'react';
 import { RootStateOrAny, useSelector } from 'react-redux';
 import Cleave from 'cleave.js/react';
 
@@ -8,12 +8,19 @@ import sticker from 'src/assets/card/chip.png';
 import Dropdown from 'src/components/Dropdown/Dropdown';
 import { cardActions } from 'src/redux/actionCreators';
 import {
+  errorTexts,
   expMonths,
   expYears,
   formItems,
+  formValuePatterns,
   imageUrls,
 } from 'src/constants/creditCard';
 import useActions from 'src/hooks/useActions';
+
+interface FocusEvent<T = Element> extends SyntheticEvent<T> {
+  relatedTarget: EventTarget | null;
+  target: EventTarget & T;
+}
 
 const Card = () => {
   const {
@@ -26,6 +33,7 @@ const Card = () => {
     isAllFieldsFilled,
     isCardNumValid,
     isCardHolderValid,
+    cardType,
   } = useSelector((state: RootStateOrAny) => state.cardReducer);
 
   const {
@@ -36,6 +44,9 @@ const Card = () => {
     setCreditCardNum,
     setExpireMonth,
     setExpireYear,
+    setIsCardNumValid,
+    setErrorText,
+    setIsCardHolderValid,
   } = useActions(cardActions);
 
   const handleType = (type: string): void => {
@@ -76,6 +87,36 @@ const Card = () => {
     }
   };
 
+  const handleOnBlur = (event: FocusEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    switch (event.target.name) {
+      case 'cvv':
+        break;
+      case 'cardholder':
+        if (!formValuePatterns.cardholder.test(value)) {
+          setIsCardHolderValid(false);
+          setErrorText(errorTexts.cardHolder);
+        } else {
+          setIsCardHolderValid(true);
+        }
+        break;
+      case 'number':
+        if (
+          cardType === 'unknown' ||
+          !formValuePatterns.cardNumber.test(
+            value.replace(/\s+/g, '').trim()
+          )
+        ) {
+          setIsCardNumValid(false);
+          setErrorText(errorTexts.cardNumber);
+        } else {
+          setIsCardNumValid(true);
+        }
+        break;
+    }
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -84,7 +125,9 @@ const Card = () => {
       </div>
       <Cleave
         className={`${styles.input} ${
-          !isAllFieldsFilled || !isCardNumValid ? styles.error : ''
+          (!isAllFieldsFilled && !creditCardNum) || !isCardNumValid
+            ? styles.error
+            : ''
         }`}
         options={{
           creditCard: true,
@@ -94,13 +137,17 @@ const Card = () => {
         name={formItems.cardNumber.name}
         value={creditCardNum}
         onChange={handleFormItem}
+        onBlur={handleOnBlur}
         placeholder={formItems.cardNumber.placeholder}
       />
       <input
         value={cardHolder}
         onChange={handleFormItem}
+        onBlur={handleOnBlur}
         className={`${styles.input} ${
-          !isAllFieldsFilled || !isCardHolderValid ? styles.error : ''
+          (!isAllFieldsFilled && !cardHolder) || !isCardHolderValid
+            ? styles.error
+            : ''
         }`}
         name={formItems.cardHolder.name}
         type="text"
@@ -125,6 +172,7 @@ const Card = () => {
         <input
           value={cvv}
           onChange={handleFormItem}
+          onBlur={handleOnBlur}
           maxLength={3}
           minLength={3}
           type="password"

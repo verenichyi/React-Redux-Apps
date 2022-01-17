@@ -7,7 +7,7 @@ import Card from 'src/components/CreditCard/Card/Card';
 import { encryptData } from 'src/helpers/card';
 import useActions from 'src/hooks/useActions';
 import { cardActions } from 'src/redux/actionCreators';
-import { errorTexts, formValuePatterns } from '../../constants/creditCard';
+import { errorTexts, formValuePatterns } from 'src/constants/creditCard';
 
 const CreditCard = () => {
   const {
