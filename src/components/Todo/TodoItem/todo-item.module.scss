@@ -1,0 +1,59 @@
+.todo {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	position: relative;
+	border: 1px solid #fff;
+	border-radius: 8px;
+
+	&:not(:last-child){
+		margin-bottom: 10px;
+	}
+}
+
+.checkbox {
+	-webkit-appearance: none;
+	appearance: none;
+	margin: 0;
+	font: inherit;
+	width: 1.15em;
+	height: 1.15em;
+	border: 0.15em solid #fff;
+	border-radius: 0.15em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	&::before {
+		content: "";
+		width: 0.65em;
+		height: 0.65em;
+		clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+		transform: scale(0);
+		transform-origin: bottom left;
+		transition: 120ms transform ease-in-out;
+		box-shadow: inset 1em 1em #CE4B8D;
+	}
+
+	&:checked::before {
+		transform: scale(1);
+	}
+
+	&:checked + label {
+		text-decoration: line-through 3px #CE4B8D;
+		transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	}
+}
+
+.title {
+	padding: 0 10px;
+}
+
+.deleteButton {
+	border: none;
+	cursor: pointer;
+	background: transparent;
+	color: crimson;
+	width: 1em;
+	height: 1em;
+}
