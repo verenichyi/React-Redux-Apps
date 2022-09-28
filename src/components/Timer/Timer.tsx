@@ -100,7 +100,7 @@ const Timer = () => {
 
     const timerInputs = Object.entries(inputValues).map(([key, value]: [string, string], index: number): ReactElement => {
         return <input key={index} value={value} onChange={handleInput} className={styles.timerInput}
-                      placeholder={`${key[0].toUpperCase()}${key.slice(1)}`} name={`${key}`} type={'number'}/>
+                      placeholder={`${key[0].toUpperCase()}${key.slice(1)}`} name={`${key}`} type={'text'}/>
     });
 
     return (

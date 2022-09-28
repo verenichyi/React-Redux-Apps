@@ -16,3 +16,17 @@ export const addTodos = createAction('ADD_TODOS');
 export const removeTodo = createAction('REMOVE_TODO');
 export const toggleCheck = createAction('TOGGLE_CHECK');
 export const setTodoInputValue = createAction('SET_TODO_INPUT_VALUE');
+
+export const cardActions = {
+	setCreditCardNum: createAction('SET_CREDIT_CARD_NUM'),
+	setCardType: createAction('SET_CARD_TYPE'),
+	setCardTypeImage: createAction('SET_CARD_TYPE_IMAGE'),
+	setCardHolder: createAction('SET_CARD_HOLDER'),
+	setExpireMonth: createAction('SET_EXPIRE_MONTH'),
+	setExpireYear: createAction('SET_EXPIRE_YEAR'),
+	setCVV: createAction('SET_CVV'),
+	setIsCardNumValid: createAction('SET_IS_CARD_NUM_VALID'),
+	setIsCardHolderValid: createAction('SET_IS_CARD_HOLDER_VALID'),
+	setIsAllFieldsFilled: createAction('SET_IS_ALL_FIELDS_FILLED'),
+	setErrorText: createAction('SET_ERROR_TEXT'),
+}
