@@ -53,5 +53,6 @@ export interface ITodo {
 
 export interface ITodosState {
 	todos: ITodo[],
-	inputValue: string
+	inputValue: string,
+	visibilityFilter: string
 }

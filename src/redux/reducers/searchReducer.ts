@@ -1,27 +1,39 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import {
-	setMode,
-	setSearchValue,
-	setSearchInputValue
+  setMode,
+  setSearchValue,
+  setSearchInputValue,
 } from '../actionCreators';
 import modes from '../../constants/searchInput';
-import {ISearchState} from '../../interfaces';
+import { ISearchState } from '../../interfaces';
 
 const initialState: ISearchState = {
-	searchValue: '',
-	mode: modes.immediate.name,
-	searchInputValue: ''
+  searchValue: '',
+  mode: modes.immediate.name,
+  searchInputValue: '',
 };
 
-type Payload = {
-	payload: string
-}
+type StringPayload = {
+  payload: string;
+};
 
-const searchReducer = handleActions({
-	[setSearchValue]: (state: ISearchState, {payload}: Payload) => ({...state, searchValue: payload}),
-	[setMode]: (state: ISearchState, {payload}: Payload) => ({...state, mode: payload}),
-	[setSearchInputValue]: (state: ISearchState, {payload}: Payload) => ({...state, searchInputValue: payload}),
-}, initialState);
+const searchReducer = handleActions(
+  {
+    [setSearchValue]: (state: ISearchState, { payload }: StringPayload) => ({
+      ...state,
+      searchValue: payload,
+    }),
+    [setMode]: (state: ISearchState, { payload }: StringPayload) => ({
+      ...state,
+      mode: payload,
+    }),
+    [setSearchInputValue]: (state: ISearchState, { payload }: StringPayload) => ({
+      ...state,
+      searchInputValue: payload,
+    }),
+  },
+  initialState
+);
 
 export default searchReducer;
