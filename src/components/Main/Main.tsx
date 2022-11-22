@@ -3,10 +3,10 @@ import { Route, Routes } from 'react-router-dom';
 
 import styles from './main.module.scss';
 
-import Timer from '../Timer/Timer';
-import Search from '../Search/Search';
-import Todo from '../Todo/Todo';
-import navLinks from '../../constants/navLinks';
+import Timer from 'src/components/Timer/Timer';
+import Search from 'src/components/Search/Search';
+import Todo from 'src/components/Todo/Todo';
+import navLinks from 'src/constants/navLinks';
 
 const Main = () => {
   return (
