@@ -22,7 +22,7 @@ const TodoItem = ({children, id, checked}: TodoProps) => {
 
 	return (
 		<li className={styles.todo}>
-			<span>
+			<span className={styles.check}>
 				<input onChange={handleToggle} checked={checked} id={inputId} className={styles.checkbox} type="checkbox"/>
 				<label htmlFor={inputId} className={styles.title}>{children}</label>
 			</span>

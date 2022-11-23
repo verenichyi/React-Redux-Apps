@@ -1,13 +1,13 @@
 .todo {
 	display: flex;
 	justify-content: space-between;
-	padding: 10px;
-	position: relative;
+	align-items: center;
+	padding: 0.5em;
 	border: 1px solid #fff;
 	border-radius: 8px;
 
 	&:not(:last-child){
-		margin-bottom: 10px;
+		margin-bottom: 0.5em;
 	}
 }
 
@@ -45,8 +45,14 @@
 	}
 }
 
+.check{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .title {
-	padding: 0 10px;
+	padding: 0 0.5em;
 }
 
 .deleteButton {
@@ -54,6 +60,6 @@
 	cursor: pointer;
 	background: transparent;
 	color: crimson;
-	width: 1em;
-	height: 1em;
+	width: 1.5em;
+	height: 1.5em;
 }

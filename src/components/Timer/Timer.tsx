@@ -1,4 +1,5 @@
 import React, { MouseEvent, ChangeEvent, useEffect, ReactElement } from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import styles from './timer.module.scss';
 
@@ -10,10 +11,9 @@ import {
   setPercentage,
   setTimerId,
   setTimerValues,
-} from '../../redux/actionCreators';
-import getDatesDifference from '../../dates/timer';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import CircularProgressBar from '../Circular-progress-bar/CircularProgressBar';
+} from 'src/redux/actionCreators';
+import getDatesDifference from 'src/dates/timer';
+import CircularProgressBar from 'src/components/Circular-progress-bar/CircularProgressBar';
 
 const Timer = () => {
   const dispatch = useDispatch();
@@ -115,7 +115,7 @@ const Timer = () => {
 
   const timerItems = Object.keys(timerValues).map(
     (item: string, index: number): ReactElement => (
-      <div key={index} className={styles.timerItem}>
+      <div key={index} data-title={item} className={styles.timerItem}>
         {timerValues[item]}
       </div>
     )
@@ -141,15 +141,13 @@ const Timer = () => {
     <div className={styles.timer}>
       <CircularProgressBar />
       <div className={styles.timerItems}>{timerItems}</div>
-      <form>
-        <div className={styles.inputs}>{timerInputs}</div>
-        <button
-          className={styles.button}
-          onClick={timer.buttonStatus === 'Start' ? handleStart : handleCancel}
-        >
-          {timer.buttonStatus}
-        </button>
-      </form>
+      <div className={styles.inputs}>{timerInputs}</div>
+      <button
+        className={styles.button}
+        onClick={timer.buttonStatus === 'Start' ? handleStart : handleCancel}
+      >
+        {timer.buttonStatus}
+      </button>
     </div>
   );
 };

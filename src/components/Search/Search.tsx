@@ -6,7 +6,7 @@ import SearchList from './SearchList/SearchList';
 import ModeLink from './ModeLink/ModeLink';
 
 import styles from './search.module.scss';
-import modes from '../../constants/searchInput';
+import modes from 'src/constants/searchInput';
 
 const Search = () => {
     const mode: string = useSelector((state: RootStateOrAny) => state.searchReducer.mode);
